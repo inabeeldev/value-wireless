@@ -12,6 +12,19 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <meta content="Themesbrand" name="author">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <link href="libs/chartist/chartist.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Css -->
+    <link href="css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css">
+    <!-- Icons Css -->
+    <link href="css/icons.min.css" rel="stylesheet" type="text/css">
+    <!-- App Css-->
+    <link href="css/app.min.css" id="app-style" rel="stylesheet" type="text/css">
+
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -76,5 +89,8 @@
             @yield('content')
         </main>
     </div>
+
+
+
 </body>
 </html>
