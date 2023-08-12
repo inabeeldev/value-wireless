@@ -1,7 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
-<!-- ========== Left Sidebar Start ========== -->
 
 <div class="vertical-menu">
 
@@ -249,5 +245,3 @@
 </div>
 <!-- Left Sidebar End -->
 
-
-@endsection
