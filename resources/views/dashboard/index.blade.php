@@ -2,9 +2,6 @@
 
 @section('content')
 
-@include('layouts.sidebar')
-
-
 
     <!-- Begin page -->
 
