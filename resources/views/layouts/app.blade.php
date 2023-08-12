@@ -14,16 +14,19 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <meta content="Themesbrand" name="author">
     <!-- App favicon -->
-    <link rel="shortcut icon" href="images/favicon.ico">
-
-    <link href="libs/chartist/chartist.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('public/images/favicon.ico') }}">
+    {{-- {{ asset('public/css/app.css') }} --}}
+    <link href="{{ asset('public/libs/chartist/chartist.min.css') }}" rel="stylesheet">
+    {{-- <link href="libs/chartist/chartist.min.css" rel="stylesheet"> --}}
 
     <!-- Bootstrap Css -->
-    <link href="css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css">
+    <link href="{{ asset('public/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css">
+    {{-- <link href="css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css"> --}}
     <!-- Icons Css -->
-    <link href="css/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('public/css/icons.min.css') }}" rel="stylesheet" type="text/css">
     <!-- App Css-->
-    <link href="css/app.min.css" id="app-style" rel="stylesheet" type="text/css">
+    <link href="{{ asset('public/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css">
+    {{-- <link href="css/app.min.css" id="app-style" rel="stylesheet" type="text/css"> --}}
 
 
     <!-- Scripts -->
@@ -39,19 +42,19 @@
                 <div class="navbar-brand-box">
                     <a href="index.html" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="/images/logo.jpeg" alt="" height="22">
+                            <img src="{{ asset('public/images/logo.jpeg') }}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="/images/logo.jpeg" alt="" height="17">
+                            <img src="{{ asset('public/images/logo.jpeg') }}" alt="" height="17">
                         </span>
                     </a>
 
                     <a href="index.html" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="/images/logo.jpeg" alt="" height="22">
+                            <img src="{{ asset('public/images/logo.jpeg') }}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="/images/logo.jpeg" alt="" height="18">
+                            <img src="{{ asset('public/images/logo.jpeg') }}" alt="" height="18">
                         </span>
                     </a>
                 </div>
@@ -110,33 +113,34 @@
                 <div class="dropdown d-none d-md-block ms-2">
                     <button type="button" class="btn header-item waves-effect"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="me-2" src="/images/flags/us_flag.jpg" alt="Header Language" height="16"> English <span class="mdi mdi-chevron-down"></span>
+                        <img class="me-2" src="{{ asset('public/images/flags/us_flag.jpg') }}" alt="Header Language" height="16"> English <span class="mdi mdi-chevron-down"></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="/images/flags/germany_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> German </span>
+                            <img src="{{ asset('public/images/flags/germany_flag.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle"> German </span>
+                            {{-- <img src="/images/flags/germany_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> German </span> --}}
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="/images/flags/italy_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Italian </span>
+                            <img src="{{ asset('public/images/flags/italy_flag.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Italian </span>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="/images/flags/french_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> French </span>
+                            <img src="{{ asset('public/images/flags/french_flag.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle"> French </span>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="/images/flags/spain_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Spanish </span>
+                            <img src="{{ asset('public/images/flags/spain_flag.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Spanish </span>
                         </a>
 
                          <!-- item-->
                          <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <img src="/images/flags/russia_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Russian </span>
+                            <img src="{{ asset('public/images/flags/russia_flag.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Russian </span>
                         </a>
                     </div>
                 </div>
@@ -265,7 +269,8 @@
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle header-profile-user" src="/images/users/user-4.jpg"
+
+                            <img class="rounded-circle header-profile-user" src="{{ asset('public/images/users/user-4.jpg') }}"
                             alt="Header Avatar">
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
@@ -304,23 +309,23 @@
         </main>
     </div>
 
-    <script src="/libs/jquery/jquery.min.js"></script>
-    <script src="/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/libs/metismenu/metisMenu.min.js"></script>
-    <script src="/libs/simplebar/simplebar.min.js"></script>
-    <script src="/libs/node-waves/waves.min.js"></script>
+    <script src="{{ asset('public/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('public/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('public/libs/metismenu/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('public/libs/simplebar/simplebar.min.js') }}"></script>
+    <script src="{{ asset('public/libs/node-waves/waves.min.js') }}"></script>
 
 
 <!-- Peity chart-->
-<script src="/libs/peity/jquery.peity.min.js"></script>
+<script src="{{ asset('public/libs/peity/jquery.peity.min.js') }}"></script>
 
 <!-- Plugin Js-->
-<script src="/libs/chartist/chartist.min.js"></script>
-<script src="/libs/chartist-plugin-tooltips/chartist-plugin-tooltip.min.js"></script>
+<script src="{{ asset('public/libs/chartist/chartist.min.js') }}"></script>
+<script src="{{ asset('public/libs/chartist-plugin-tooltips/chartist-plugin-tooltip.min.js') }}"></script>
 
-<script src="/js/pages/dashboard.init.js"></script>
+<script src="{{ asset('public/js/pages/dashboard.init.js') }}"></script>
 
-<script src="/js/app.js"></script>
+<script src="{{ asset('public/js/app.js') }}"></script>
 
 </body>
 </html>
