@@ -5,7 +5,7 @@
 
 
     <!-- Begin page -->
-  @include('layouts.sidebar')
+    @include('layouts.sidebar')
     <!-- END layout-wrapper -->
 
     <!-- Right Sidebar -->
