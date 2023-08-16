@@ -26,7 +26,16 @@
     <link href="{{ asset('public/css/icons.min.css') }}" rel="stylesheet" type="text/css">
     <!-- App Css-->
     <link href="{{ asset('public/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css">
+    <link href="{{ asset('public/css/custom.css') }}" id="app-style" rel="stylesheet" type="text/css">
+
     {{-- <link href="css/app.min.css" id="app-style" rel="stylesheet" type="text/css"> --}}
+
+    <link href="{{ asset('public/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('public/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
+
+    <link href="{{ asset('public/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
+      <link href="{{ asset('public/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css">
+
 
 
     <!-- Scripts -->
@@ -280,19 +289,21 @@
                         <a class="dropdown-item d-flex align-items-center" href="#"><i class="mdi mdi-cog font-size-17 align-middle me-1"></i> Settings<span class="badge bg-success ms-auto">11</span></a>
                         <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline font-size-17 align-middle me-1"></i> Lock screen</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="#"><i class="bx bx-power-off font-size-17 align-middle me-1 text-danger"></i> Logout</a>
+
+                        <a class="dropdown-item text-danger" href="{{ route('logout') }}"  onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit();"><i class="bx bx-power-off font-size-17 align-middle me-1 text-danger" ></i> Logout</a>
+                              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
                     </div>
                 </div>
 
                 <div class="dropdown d-inline-block">
-                    <a type="button" href="{{ route('logout') }}" onclick="event.preventDefault();
-                          document.getElementById('logout-form').submit();"
+                    <a type="button" href=""
                           class="btn header-item noti-icon right-bar-toggle waves-effect">
                           <i class="mdi mdi-cog-outline"></i>
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                      @csrf
-                  </form>
+
                 </div>
 
             </div>
@@ -326,6 +337,41 @@
 <script src="{{ asset('public/js/pages/dashboard.init.js') }}"></script>
 
 <script src="{{ asset('public/js/app.js') }}"></script>
+<script src="{{ asset('public/js/custom.js') }}"></script>
+
+
+<!-- table js -->
+<!-- Required datatable js -->
+<script src="{{ asset('public/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('public/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<!-- Buttons examples -->
+<script src="{{ asset('public/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('public/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('public/libs/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('public/libs/pdfmake/build/pdfmake.min.js') }}"></script>
+<script src="{{ asset('public/libs/pdfmake/build/vfs_fonts.js') }}"></script>
+<script src="{{ asset('public/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('public/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('public/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
+<!-- Responsive examples -->
+<script src="{{ asset('/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+
+<!-- Datatable init js -->
+<script src="{{ asset('/js/pages/datatables.init.js') }}"></script>
+
+
+<script src="{{ asset('public/libs/jquery/jquery.min.js')}}"></script>
+<script src="{{ asset('public/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('public/libs/metismenu/metisMenu.min.js')}}"></script>
+<script src="{{ asset('public/libs/simplebar/simplebar.min.js')}}"></script>
+<script src="{{ asset('public/libs/node-waves/waves.min.js')}}"></script>
+
+
+<!-- select -->
+        <script src="{{ asset('public/js/pages/datatables.init.js') }}"></script>
+
+
 
 </body>
 </html>
