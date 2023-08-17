@@ -82,3 +82,9 @@
     </div>
 </div>
 @endsection
+
+@section('customJS')
+    <script>
+        console.log('Demo JS')
+    </script>
+@endsection
