@@ -25,17 +25,20 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="ti-email"></i>
-                        <span>Email</span>
+                        <i class="dripicons-cart"></i>
+                        <span>Purchases</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="email-inbox.html">Inbox</a></li>
-                        <li><a href="email-read.html">Email Read</a></li>
-                        <li><a href="email-compose.html">Email Compose</a></li>
+                        <li><a href="email-inbox.html">Suppliers</a></li>
+                        <li><a href="email-read.html">Purchase orders</a></li>
+                        <li><a href="{{route("batch.index")}}">Batch</a></li>
+                        <li><a href="email-compose.html">Return to Supplier</a></li>
+
+
                     </ul>
                 </li>
 
-                <li class="menu-title">Components</li>
+                <!-- <li class="menu-title">Components</li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -236,7 +239,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> -->
 
             </ul>
         </div>
@@ -244,4 +247,3 @@
     </div>
 </div>
 <!-- Left Sidebar End -->
-
