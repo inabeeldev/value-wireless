@@ -12,7 +12,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        dd('supplier list');
+
         return view('purchases.supplier.index');
     }
 
@@ -21,7 +21,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        dd('supplier create');
+  
         return view('purchases.supplier.create');
     }
 

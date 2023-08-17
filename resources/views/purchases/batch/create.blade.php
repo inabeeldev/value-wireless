@@ -13,10 +13,10 @@
                             <div class="row d-flex justify-content-center">
                                 <div class="col-lg-4 col-12 bg-white p-4">
 
-<form class="form-group batch-form" action="index.html" method="post">
+<form class="form-group batch-form" action="" method="post">
 <div class="form-group">
 <label for="">Custom Batch No</label>
-<input type="text" name="" value="" class="form-control">
+<input type="text" name="" value="" class="form-control" required>
 </div>
 
 <div class="form-group">
@@ -48,7 +48,7 @@
 
 
 <div class="d-flex justify-content-center">
-  <input class="btn btn-info text-white" type="button" name="" value="Create Batch">
+  <input class="btn btn-info text-white" type="submit" name="" value="Create Batch">
 
 </div>
 </form>
