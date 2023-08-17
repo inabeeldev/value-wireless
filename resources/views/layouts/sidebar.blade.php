@@ -12,7 +12,7 @@
                 <li>
                     <a href="index.html" class="waves-effect">
                         <i class="ti-home"></i><span class="badge rounded-pill bg-primary float-end">1</span>
-                        <span>Dashboard</span>
+                        <span>Dashboard1</span>
                     </a>
                 </li>
 
@@ -29,7 +29,7 @@
                         <span>Purchases</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="email-inbox.html">Suppliers</a></li>
+                        <li><a href="{{route("supplier.index")}}">Suppliers</a></li>
                         <li><a href="email-read.html">Purchase orders</a></li>
                         <li><a href="{{route("batch.index")}}">Batch</a></li>
                         <li><a href="email-compose.html">Return to Supplier</a></li>
