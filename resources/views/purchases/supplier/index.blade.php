@@ -10,6 +10,7 @@
           <div class="page-content">
             <div class="container-fluid">
               <div class="row">
+                @include('layouts.messages')
                 <div class="col-12">
                   <div class="card">
                     <div class="card-body">
@@ -19,21 +20,22 @@
                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                       <thead>
                         <tr>
-                          <th>ID</th>
+                          <th>#</th>
                           <th>Name</th>
-                          <th>Phone No</th>
                           <th>Email</th>
-                          <th>Address</th>
+                          <th>Phone No</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>+535353535</td>
-                          <td>iphone</td>
-                          <td>18-8-2023</td>
-                          <td>USA</td>
-                        </tr>
+
+                        @foreach ($suppliers as $s)
+                            <tr>
+                              <td>{{ $loop->iteration }}</td>
+                              <td>{{ $s->name }}</td>
+                              <td>{{ $s->email }}</td>
+                              <td>{{ $s->phone }}</td>
+                            </tr>
+                        @endforeach
                       </tbody>
                     </table>
                   </div>

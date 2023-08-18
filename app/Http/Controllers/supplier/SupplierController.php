@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\supplier;
 
-use App\Http\Controllers\Controller;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class SupplierController extends Controller
 {
@@ -12,8 +14,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-
-        return view('purchases.supplier.index');
+        $suppliers =  Supplier::all();
+        return view('purchases.supplier.index', compact('suppliers'));
     }
 
     /**
@@ -21,7 +23,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-  
+
         return view('purchases.supplier.create');
     }
 
@@ -30,7 +32,27 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required'
+        ]);
+        if ($validator->passes()) {
+            $input = $request->all();
+            Supplier::create($input);
+
+            $request->session()->flash('success', 'Supplier added successfully');
+            return response()->json([
+                'status' => true,
+                'message' =>'Supplier added successfully'
+            ]);
+        }
+        else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
     }
 
     /**
