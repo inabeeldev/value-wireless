@@ -1,5 +1,4 @@
 <header id="page-topbar">
-
     <div class="navbar-header">
         <div class="d-flex">
             <!-- LOGO -->
@@ -12,7 +11,6 @@
                         <img src="{{ asset('public/images/logo.jpeg') }}" alt="" height="17">
                     </span>
                 </a>
-
                 <a href="index.html" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="{{ asset('public/images/logo.jpeg') }}" alt="" height="22">
@@ -22,17 +20,14 @@
                     </span>
                 </a>
             </div>
-
             <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
                 <i class="mdi mdi-menu"></i>
             </button>
-
             <div class="d-none d-sm-block">
                 <div class="dropdown pt-3 d-inline-block">
                     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Create <i class="mdi mdi-chevron-down"></i>
                         </a>
-
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="#">Action</a>
                         <a class="dropdown-item" href="#">Another action</a>
@@ -43,7 +38,6 @@
                 </div>
             </div>
         </div>
-
         <div class="d-flex">
               <!-- App Search-->
               <form class="app-search d-none d-lg-block">
@@ -52,7 +46,6 @@
                     <span class="fa fa-search"></span>
                 </div>
             </form>
-
             <div class="dropdown d-inline-block d-lg-none ms-2">
                 <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -73,48 +66,40 @@
                     </form>
                 </div>
             </div>
-
             <div class="dropdown d-none d-md-block ms-2">
                 <button type="button" class="btn header-item waves-effect"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="me-2" src="{{ asset('public/images/flags/us_flag.jpg') }}" alt="Header Language" height="16"> English <span class="mdi mdi-chevron-down"></span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
-
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <img src="{{ asset('public/images/flags/germany_flag.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle"> German </span>
                         {{-- <img src="/images/flags/germany_flag.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle"> German </span> --}}
                     </a>
-
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <img src="{{ asset('public/images/flags/italy_flag.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Italian </span>
                     </a>
-
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <img src="{{ asset('public/images/flags/french_flag.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle"> French </span>
                     </a>
-
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <img src="{{ asset('public/images/flags/spain_flag.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Spanish </span>
                     </a>
-
                      <!-- item-->
                      <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <img src="{{ asset('public/images/flags/russia_flag.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle"> Russian </span>
                     </a>
                 </div>
             </div>
-
             <div class="dropdown d-none d-lg-inline-block">
                 <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
                     <i class="mdi mdi-fullscreen"></i>
                 </button>
             </div>
-
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -147,7 +132,6 @@
                                 </div>
                             </div>
                         </a>
-
                         <a href="" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
@@ -165,7 +149,6 @@
                                 </div>
                             </div>
                         </a>
-
                         <a href="" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
@@ -183,7 +166,6 @@
                                 </div>
                             </div>
                         </a>
-
                         <a href="" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
@@ -201,7 +183,6 @@
                                 </div>
                             </div>
                         </a>
-
                         <a href="" class="text-reset notification-item">
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
@@ -229,7 +210,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -244,7 +224,6 @@
                     <a class="dropdown-item d-flex align-items-center" href="#"><i class="mdi mdi-cog font-size-17 align-middle me-1"></i> Settings<span class="badge bg-success ms-auto">11</span></a>
                     <a class="dropdown-item" href="#"><i class="mdi mdi-lock-open-outline font-size-17 align-middle me-1"></i> Lock screen</a>
                     <div class="dropdown-divider"></div>
-
                     <a class="dropdown-item text-danger" href="{{ route('logout') }}"  onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">
                         <i class="bx bx-power-off font-size-17 align-middle me-1 text-danger" ></i> Logout</a>
@@ -253,7 +232,6 @@
                             </form>
                 </div>
             </div>
-
             {{-- <div class="dropdown d-inline-block">
                 <a type="button" href=""
                       class="btn header-item noti-icon right-bar-toggle waves-effect">
