@@ -19,8 +19,8 @@
                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                       <thead>
                         <tr>
-                          <th>ID</th>
-                          <th>Custom Feild</th>
+                          <th>#</th>
+                          <th>Batch No</th>
                           <th>Date</th>
                           <th>Supllier</th>
                           <th>Warehouse</th>
@@ -32,18 +32,20 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>iphone</td>
-                          <td>18-8-2023</td>
-                          <td>USA</td>
-                          <td>Dubai</td>
-                          <td><div class="badge-draft"> Draft </div></td>
-                          <td>Delivered</td>
-                          <td>Ibrar</td>
-                          <td>All phones 11</td>
-                          <td>50</td>
-                        </tr>
+                        @foreach ($batches as $b)
+                            <tr>
+                              <td>{{ $loop->iteration }}</td>
+                              <td>{{ $b->batch_no }}</td>
+                              <td>{{ $b->created_at->format('d/m/y') }}</td>
+                              <td>{{ $b->supplier->name }}</td>
+                              <td>{{ $b->warehouse->name }}</td>
+                              <td><div class="badge-draft"> {{ $b->status == 'disable' ? 'Draft' : 'active' }} </div></td>
+                              <td>Delivered</td>
+                              <td>{{ Auth::user()->name }}</td>
+                              <td>{{ $b->comment }}</td>
+                              <td>50</td>
+                            </tr>
+                        @endforeach
                       </tbody>
                     </table>
                   </div>

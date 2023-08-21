@@ -18,6 +18,8 @@ return new class extends Migration
             $table->mediumText('comment');
             $table->foreignId('supplier_id')->constrained();
             $table->foreignId('warehouse_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->enum('status', ['enable', 'disable'])->default('disable');
             $table->timestamps();
 
         });
