@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\warehouse;
 
 use App\Http\Controllers\Controller;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class WarehouseController extends Controller
 {
@@ -12,7 +14,8 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        return view('purchases.warehouse.index');
+        $warehouses = Warehouse::all();
+        return view('purchases.warehouse.index' , compact('warehouses'));
     }
 
     /**
@@ -28,7 +31,27 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'location' => 'required'
+        ]);
+        if ($validator->passes()) {
+            $input = $request->all();
+            Warehouse::create($input);
+
+            $request->session()->flash('success', 'Warehouse added successfully');
+            return response()->json([
+                'status' => true,
+                'message' =>'Warehouse added successfully'
+            ]);
+        }
+        else {
+            // return redirect()->route('warehouse.create')->withErrors($validator)->withInput();
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
     }
 
     /**

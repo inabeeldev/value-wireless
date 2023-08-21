@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\batch;
 
 use App\Http\Controllers\Controller;
+use App\Models\Batch;
 use Illuminate\Http\Request;
 
 class BatchController extends Controller
@@ -12,7 +13,9 @@ class BatchController extends Controller
      */
     public function index()
     {
-      return view('Purchases.batch.index');
+        $batches = Batch::with(['supplier','warehouse'])->get();
+        // dd($batches);
+        return view('Purchases.batch.index', compact('batches'));
 
     }
 

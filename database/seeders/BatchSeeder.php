@@ -20,6 +20,7 @@ class BatchSeeder extends Seeder
             'comment' => 'All iphone 11 pro',
             'supplier_id' => 1,
             'warehouse_id' => 2,
+            'user_id' => 1,
         ]);
         Batch::create([
             'batch_no' => 'AB444',
@@ -27,6 +28,7 @@ class BatchSeeder extends Seeder
             'comment' => 'All iphone 13 pro',
             'supplier_id' => 2,
             'warehouse_id' => 3,
+            'user_id' => 1,
         ]);
         Batch::create([
             'batch_no' => 'AB999',
@@ -34,6 +36,7 @@ class BatchSeeder extends Seeder
             'comment' => 'All iphone 14 pro',
             'supplier_id' => 1,
             'warehouse_id' => 1,
+            'user_id' => 1,
         ]);
         Batch::create([
             'batch_no' => 'AB778',
@@ -41,6 +44,7 @@ class BatchSeeder extends Seeder
             'comment' => 'All iphone 13 pro',
             'supplier_id' => 1,
             'warehouse_id' => 2,
+            'user_id' => 1,
         ]);
         Batch::create([
             'batch_no' => 'AB354',
@@ -48,6 +52,7 @@ class BatchSeeder extends Seeder
             'comment' => 'All iphone 11 pro',
             'supplier_id' => 2,
             'warehouse_id' => 1,
+            'user_id' => 1,
         ]);
         Batch::create([
             'batch_no' => 'AB852',
@@ -55,6 +60,7 @@ class BatchSeeder extends Seeder
             'comment' => 'All iphone X max',
             'supplier_id' => 2,
             'warehouse_id' => 2,
+            'user_id' => 1,
         ]);
         Batch::create([
             'batch_no' => 'AB114',
@@ -62,6 +68,7 @@ class BatchSeeder extends Seeder
             'comment' => 'All iphone 12 plus',
             'supplier_id' => 2,
             'warehouse_id' => 1,
+            'user_id' => 1,
         ]);
     }
 }

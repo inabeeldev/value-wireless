@@ -37,7 +37,7 @@
   <link href="{{ asset('public/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css">
 
 
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Scripts -->
   @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -104,8 +104,17 @@
 
   <!-- select -->
   <script src="{{ asset('public/js/pages/datatables.init.js') }}"></script>
+    @include('layouts.jquery')
 
-  @yield('customJS')
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
+
+    @yield('customJS')
 
 </body>
 </html>
