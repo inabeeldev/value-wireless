@@ -26,10 +26,14 @@
                     </div>
                     <div class="form-group">
                       <label for="">Supplier</label>
-                      <select name="" class=" select2 form-control">
-                        <option value="">Unknow</option>
-                        <option value="">New</option>
-                      </select>
+
+                        <select name="" class=" select2 form-control">
+                            @foreach ($suppliers as $s)
+                          <option value="{{ $s->id }}">{{ $s->name }}</option>
+                            @endforeach
+
+                          <option value="">New</option>
+                        </select>
                     </div>
                     <div class="form-group">
                       <label for="">Paid</label>
