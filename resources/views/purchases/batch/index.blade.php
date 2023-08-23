@@ -10,6 +10,7 @@
           <div class="page-content">
             <div class="container-fluid">
               <div class="row">
+                @include('layouts.messages')
                 <div class="col-12">
                   <div class="card">
                     <div class="card-body">
