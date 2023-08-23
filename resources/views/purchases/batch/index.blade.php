@@ -45,7 +45,10 @@
                               <td>{{ Auth::user()->name }}</td>
                               <td>{{ $b->comment }}</td>
                               <td>50</td>
+                              <td><a href="#" class="btn btn-info">Edit</a><a class="btn btn-danger pl-3">Delete</a></td>
+
                             </tr>
+
                         @endforeach
                       </tbody>
                     </table>

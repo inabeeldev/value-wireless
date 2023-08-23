@@ -34,6 +34,8 @@
                               <td>{{ $s->name }}</td>
                               <td>{{ $s->email }}</td>
                               <td>{{ $s->phone }}</td>
+                              <td><a href="#" class="btn btn-info">Edit</a><a class="btn btn-danger pl-3">Delete</a></td>
+
                             </tr>
                         @endforeach
                       </tbody>
