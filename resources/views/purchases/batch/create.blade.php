@@ -133,7 +133,7 @@
               @csrf
               <div class="form-group">
                   <label for="">Warehouse Name</label>
-                  <input class="form-control" name="name" type="text" id="name">
+                  <input class="form-control" name="name" type="text" id="w_name">
                   <p></p>
 
               </div>
@@ -374,7 +374,7 @@
 
                     window.location.href = "{{ route('batch.create') }}"
 
-                    $('#name').removeClass('is-invalid')
+                    $('#w_name').removeClass('is-invalid')
                         .siblings('p')
                         .removeClass('invalid-feedback')
                         .html('');
@@ -386,13 +386,13 @@
                 else {
                     var errors = response['errors'];
                     if (errors['name']) {
-                        $('#name').addClass('is-invalid')
+                        $('#w_name').addClass('is-invalid')
                         .siblings('p')
                         .addClass('invalid-feedback')
                         .html(errors['name']);
                     }
                     else {
-                        $('#name').removeClass('is-invalid')
+                        $('#w_name').removeClass('is-invalid')
                         .siblings('p')
                         .removeClass('invalid-feedback')
                         .html('');
