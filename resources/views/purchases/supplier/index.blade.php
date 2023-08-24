@@ -34,8 +34,10 @@
                               <td>{{ $s->name }}</td>
                               <td>{{ $s->email }}</td>
                               <td>{{ $s->phone }}</td>
-                              <td><a href="#" class="btn btn-info">Edit</a><a class="btn btn-danger pl-3">Delete</a></td>
-
+                              <td><a href="{{ route('supplier.edit', $s->id) }}" class="btn btn-info">Edit</a>
+                                &nbsp;<a class="btn btn-danger pl-3" href="javascript:void(0)"
+                                id="delete-supplier"
+                                data-url="{{ route('supplier.destroy', $s->id) }}">Delete</a></td>
                             </tr>
                         @endforeach
                       </tbody>
@@ -52,9 +54,57 @@
   </div>
 </div>
 </div>
+
+
+
+<!-- Delete Modal start -->
+<div class="modal fade" id="exampleModal51" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Supplier Deleted Successfully</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Delete Modal end -->
+
 @endsection
 @section('customJS')
-    <script>
-        console.log('Demo JS')
-    </script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('table').on('click', '#delete-supplier', function () {
+
+          var supplierURL = $(this).data('url');
+          var trObj = $(this);
+
+          if(confirm("Are you sure you want to remove this Supplier?") == true){
+                $.ajax({
+                    url: supplierURL,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function(data) {
+                        trObj.parents("tr").remove();
+                        let modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('exampleModal51'))
+                        modal.show();
+                        modal.hide();
+                    }
+                });
+          }
+
+       });
+
+    });
+
+</script>
 @endsection

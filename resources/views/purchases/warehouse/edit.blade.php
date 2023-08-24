@@ -12,24 +12,26 @@
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-lg-4 col-12 bg-white p-4">
                                         <h3 class="text-center">Add a Warehouse</h3>
-                                        <form class="form-group batch-form" id="warehouseForm" name="warehouseForm" action=""  method="post">
+                                        <form class="form-group batch-form" id="warehouseForm3" name="warehouseForm3" action=""  method="post">
                                             @csrf
+                                            @method('PUT')
+                                            <input type="hidden" id="editId" value="{{ $warehouse->id }}">
                                             <div class="form-group">
                                                 <label for="">Warehouse Name</label>
-                                                <input class="form-control" name="name" type="text" id="name">
+                                                <input class="form-control" name="name" value="{{ $warehouse->name }}" type="text" id="name">
                                                 <p></p>
 
                                             </div>
 
                                             <div class="form-group ">
                                                 <label for="">Location</label>
-                                                <input class="form-control " name="location" type="text" id="location" >
+                                                <input class="form-control " name="location" value="{{ $warehouse->location }}" type="text" id="location" >
                                                 <p></p>
 
                                             </div>
 
                                             <div class="d-flex justify-content-center">
-                                                <button class="btn btn-info text-white"  type="submit">Create </button>
+                                                <button class="btn btn-info text-white"  type="submit">Update </button>
                                             </div>
                                     </form>
                                 </div> <!-- end row -->
@@ -45,12 +47,15 @@
 
 @section('customJS')
     <script>
-        $("#warehouseForm").submit(function(event) {
+        $("#warehouseForm3").submit(function(event) {
             event.preventDefault();
             var element = $(this);
+            var id= $("#editId").val();
+            var url = '{{ route("warehouse.update", ":id") }}';
+            url = url.replace(':id', id);
             $.ajax({
-                url: '{{ route('warehouse.store') }}',
-                type: 'post',
+                url: url,
+                type: 'POST',
                 data: element.serializeArray(),
                 dataType: 'json',
                 success: function(response){

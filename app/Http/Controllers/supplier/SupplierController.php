@@ -68,7 +68,9 @@ class SupplierController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $supplier = Supplier::find($id);
+        // dd($supplier);
+        return view('purchases.supplier.edit',compact('supplier'));
     }
 
     /**
@@ -76,7 +78,30 @@ class SupplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($id);
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required'
+        ]);
+        $supplier = Supplier::find($id);
+        if ($validator->passes()) {
+            $input = $request->all();
+            $supplier->update($input);
+
+            $request->session()->flash('success', 'Supplier Updated successfully');
+            return response()->json([
+                'status' => true,
+                'message' =>'Supplier Updated successfully'
+            ]);
+        }
+        else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
+
     }
 
     /**
@@ -84,6 +109,8 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Supplier::find($id)->delete();
+
+        return response()->json(['success'=>'Supplier Deleted Successfully!']);
     }
 }
