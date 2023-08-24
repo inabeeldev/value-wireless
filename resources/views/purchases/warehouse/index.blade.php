@@ -33,6 +33,8 @@
                                                              <td>{{ $loop->iteration }}</td>
                                                              <td>{{ $w->name }}</td>
                                                              <td>{{ $w->location }}</td>
+                                                             <td><a href="#" class="btn btn-info">Edit</a><a class="btn btn-danger pl-3">Delete</a></td>
+
                                                          </tr>
                                                        @endforeach
                                                     </tbody>
