@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\batch\BatchController;
 use App\Http\Controllers\supplier\SupplierController;
 use App\Http\controllers\warehouse\WarehouseController;
+use App\Http\controllers\device\DeviceController;
+use App\Http\controllers\grade\GradeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +28,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('batch', BatchController::class);
 Route::resource('supplier', SupplierController::class);
 Route::resource('warehouse',WarehouseController::class);
+Route::resource('device',DeviceController::class);
+Route::resource('grade',GradeController::class);

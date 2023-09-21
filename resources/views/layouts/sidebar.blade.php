@@ -29,7 +29,7 @@
           <ul class="sub-menu" aria-expanded="false">
             <li><a href="{{route('supplier.index')}}">Suppliers</a></li>
             <li><a href="email-read.html">Purchase orders</a></li>
-            <li><a href="{{route('batch.index')}}">Batch</a></li>
+            <li><a href="{{route('batch.index')}}">Batch</a></li>  <li><a href="{{route('device.index')}}">Device</a></li> <li><a href="{{route('grade.index')}}">Grade</a></li>
             <li><a href="{{route('warehouse.index')}}">Warehouse</a></li>
             <li><a href="email-compose.html">Return to Supplier</a></li>
           </ul>
