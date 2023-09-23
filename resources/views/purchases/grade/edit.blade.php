@@ -11,21 +11,21 @@
                             <div class="container-fluid">
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-lg-4 col-12 bg-white p-4">
-                                        <h3 class="text-center">Edit Device</h3>
-                                        <form class="form-group batch-form" id="deviceForm3" name="deviceForm3" action=""  method="post">
+                                        <h3 class="text-center">Edit Grade</h3>
+                                        <form class="form-group batch-form" id="gradeForm3" name="gradeForm3" action=""  method="post">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" id="editId5" value="{{ $device->id }}">
+                                            <input type="hidden" id="editId6" value="{{ $grade->id }}">
                                             <div class="form-group">
-                                                <label for="">Device Name</label>
-                                                <input class="form-control" name="name" value="{{ $device->name }}" type="text" id="name">
+                                                <label for="">Grade Name</label>
+                                                <input class="form-control" name="name" value="{{ $grade->name }}" type="text" id="name">
                                                 <p></p>
 
                                             </div>
 
                                             <div class="form-group ">
                                                 <label for="">Comment</label>
-                                                <input class="form-control " name="comment" value="{{ $device->comment }}" type="text" id="comment" >
+                                                <input class="form-control " name="comment" value="{{ $grade->comment }}" type="text" id="comment" >
                                                 <p></p>
 
                                             </div>
@@ -47,11 +47,11 @@
 
 @section('customJS')
     <script>
-        $("#deviceForm3").submit(function(event) {
+        $("#gradeForm3").submit(function(event) {
             event.preventDefault();
             var element = $(this);
-            var id= $("#editId5").val();
-            var url = '{{ route("device.update", ":id") }}';
+            var id= $("#editId6").val();
+            var url = '{{ route("grade.update", ":id") }}';
             url = url.replace(':id', id);
             $.ajax({
                 url: url,
@@ -62,7 +62,7 @@
 
                     if (response['status'] == true) {
 
-                        window.location.href = "{{ route('device.index') }}"
+                        window.location.href = "{{ route('grade.index') }}"
 
                         $('#name').removeClass('is-invalid')
                             .siblings('p')

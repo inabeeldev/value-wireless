@@ -14,27 +14,29 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Device</h4>
-                      <a href="{{route('device.create')}}"class="btn btn-success">Add New device</a>
+                      <h4 class="card-title">Grade</h4>
+                      <a href="{{route('grade.create')}}"class="btn btn-success">Add New Grade</a>
                     </p>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>Device Name</th>
+                          <th>Grade Name</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                            @foreach ($devices as $device)
+
+                            @foreach ($grades as $grade)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $device->name }}</td>
+                                <td>{{ $grade->name }}</td>
 
-                                <td><a href="{{ route('device.edit', $device->id) }}" class="btn btn-info">Edit</a>
+                                <td><a href="{{ route('grade.edit', $grade->id) }}" class="btn btn-info">Edit</a>
                                     &nbsp;<a class="btn btn-danger pl-3" href="javascript:void(0)"
-                                    id="delete-device"
-                                    data-url="{{ route('device.destroy', $device->id) }}">Delete</a></td>
+                                    id="delete-grade"
+                                    data-url="{{ route('grade.destroy', $grade->id) }}">Delete</a></td>
+
 
                               </tr>
                             @endforeach
@@ -57,12 +59,13 @@
 
 
 
+
 <!-- Delete Modal start -->
-<div class="modal fade" id="exampleModal61" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal71" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Device Deleted Successfully</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Grade Deleted Successfully</h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -83,19 +86,19 @@
 
     $(document).ready(function () {
 
-        $('table').on('click', '#delete-device', function () {
+        $('table').on('click', '#delete-grade', function () {
 
-          var deviceURL = $(this).data('url');
+          var gradeURL = $(this).data('url');
           var trObj = $(this);
 
-          if(confirm("Are you sure you want to remove this Device?") == true){
+          if(confirm("Are you sure you want to remove this Grade?") == true){
                 $.ajax({
-                    url: deviceURL,
+                    url: gradeURL,
                     type: 'DELETE',
                     dataType: 'json',
                     success: function(data) {
                         trObj.parents("tr").remove();
-                        let modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('exampleModal61'))
+                        let modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('exampleModal71'))
                         modal.show();
                         modal.hide();
                     }
