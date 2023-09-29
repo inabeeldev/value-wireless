@@ -36,7 +36,7 @@
                         @foreach ($batches as $b)
                             <tr>
                               <td>{{ $loop->iteration }}</td>
-                              <td>{{ $b->batch_no }}</td>
+                              <td><a href="{{route('batch-detail')}}">{{ $b->batch_no }}</a></td>
                               <td>{{ $b->created_at->format('d/m/y') }}</td>
                               <td>{{ $b->supplier->name }}</td>
                               <td>{{ $b->warehouse->name }}</td>

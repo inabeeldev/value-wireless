@@ -20,7 +20,15 @@ class BatchController extends Controller
         // dd($batches);
         return view('Purchases.batch.index', compact('batches'));
 
-    }
+    }    
+
+    public function batch_detail()
+        {
+
+            // dd($batches);
+            return view('purchases.batch.batch_detail');
+
+        }
 
     /**
      * Show the form for creating a new resource.

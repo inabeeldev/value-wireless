@@ -26,16 +26,11 @@
                         </tr>
                       </thead>
                       <tbody>
-
                             <tr>
                               <td>1</td>
                               <td>Iphone 11 Black 22 GB</td>
-
                               <td><a href="#" class="btn btn-info">Edit</a><a class="btn btn-danger pl-3">Delete</a></td>
-
                             </tr>
-
-
                       </tbody>
                     </table>
                   </div>

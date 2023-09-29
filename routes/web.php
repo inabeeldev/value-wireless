@@ -23,7 +23,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::get('/batch-detail', [BatchController::class, 'batch_detail'])->name('batch-detail');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('batch', BatchController::class);
 Route::resource('supplier', SupplierController::class);
