@@ -26,6 +26,7 @@
                         </tr>
                       </thead>
                       <tbody>
+
                             @foreach ($devices as $device)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -38,7 +39,6 @@
 
                               </tr>
                             @endforeach
-
 
                       </tbody>
                     </table>
