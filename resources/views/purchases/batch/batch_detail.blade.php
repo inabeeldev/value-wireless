@@ -20,8 +20,17 @@
                     <div class="col-lg-3 col-md-3 col-sm-3 col-12">
                       <div class="card">
                         <div class="card-body detail">
-                          <p> <strong>  Warehouse</strong></p>
-                          <p> <strong>Lahore</strong></p>
+                          <p> <strong>  Batch No</strong></p>
+                          <p> <strong>{{ $batch_detail['batch_no'] }}</strong></p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+                      <div class="card">
+                        <div class="card-body detail">
+                          <p> <strong>  Supplier</strong></p>
+                          <p> <strong>{{ $supplier->name }}</strong></p>
                         </div>
                       </div>
                     </div>
@@ -30,7 +39,7 @@
                       <div class="card">
                         <div class="card-body detail">
                           <p> <strong>  Warehouse</strong></p>
-                          <p> <strong>Lahore</strong></p>
+                          <p> <strong>{{ $warehouse->name }}</strong></p>
                         </div>
                       </div>
                     </div>
@@ -38,17 +47,8 @@
                     <div class="col-lg-3 col-md-3 col-sm-3 col-12">
                       <div class="card">
                         <div class="card-body detail">
-                          <p> <strong>  Warehouse</strong></p>
-                          <p> <strong>Lahore</strong></p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-12">
-                      <div class="card">
-                        <div class="card-body detail">
-                          <p> <strong>  Warehouse</strong></p>
-                          <p> <strong>Lahore</strong></p>
+                          <p> <strong>  Paid</strong></p>
+                          <p> <strong>{{ $batch_detail['paid'] }} AED</strong></p>
                         </div>
                       </div>
                     </div>
@@ -56,7 +56,7 @@
                   </div>
                 </div>
 
-              <p> <b>   Custom Batch N</b> 11111</p>
+              <p> <b>   Custom Batch N</b> {{ $batch_detail['batch_no'] }}</p>
                   </div>
                 </div>
               </div> <!-- end col -->
@@ -64,56 +64,58 @@
             <div class="row">
                      <div class="col-12">
                       <!-- Add Device Form -->
-                      <form action="" method="">  
-                  <div class="card">
-                    <div class="card-body">
-                <div class="container-fluid">
-                  <div class="row">
-                     <h2> Add Devices</h2>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-12">
-                       <input type="" name="" class="form-control" placeholder="Goods">
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-3 col-12">
-                       <select class="form-control"> 
-                        <option>  A HSO </option>
-                        <option>  A+ HSO </option>
-                        <option>  AAA</option>
-                        <option>  AAA W/Box</option>
-                        <option>  B HSO</option>
-                        <option>  B+ HSO</option>
-                        <option>  BNS</option>
-                       </select>
+                      <form id="add-device-form">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <h2> Add Devices</h2>
+                                        <!-- Device selection dropdown -->
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+                                            <select class="form-control" id="device-select">
+                                                <option value="">Select Device</option>
+                                                @foreach($devices as $device)
+                                                    <option value="{{ $device->id }}">{{ $device->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <!-- Grade selection dropdown -->
+                                        <div class="col-lg-2 col-md-2 col-sm-3 col-12">
+                                            <select class="form-control" id="grade-select">
+                                                <option value="">Select Grade</option>
+                                                @foreach($grades as $grade)
+                                                    <option value="{{ $grade->id }}">{{ $grade->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <!-- Purchase price input -->
+                                        <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+                                            <input type="text" class="form-control" id="purchase-price" placeholder="Purchase price">
+                                        </div>
+                                        <!-- Add Goods button -->
+                                        <div class="col-lg-2 col-md-2 col-sm-3 col-12">
+                                            <button type="button" class="form-control btn btn-info" id="add-goods-btn">Add Goods</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12"><p class="batch-name"><b>Custom Batch N : </b> 11111</p></div>
+                            </div>
                         </div>
-                    <div class="col-lg-2 col-md-2 col-sm-3 col-12">
-                       <input type="" name="" class="form-control" placeholder="Quantity" disabled="disableed">
-                    </div>
-
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-12">
-                       <input type="" name="" class="form-control" placeholder="Purchase price">
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-3 col-12">
-                       <input type="submit" name="" value="Add Goods" class="form-control btn btn-info">
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-lg-12"><p class="batch-name"><b>Custom Batch N : </b> 11111</p></div>
-                  </div>
-                </div>
-              </form>
+                    </form>
               <!-- Add device Form end -->
               </div> <!-- end col -->
                </div>
+
                      <div class="card">
                     <div class="card-body">
                  <div class="row">
                      <div class="col-12">
-                      <form action="" method="">  
-            
-                <div class="container-fluid">
-                  <div class="row items-heading">  
+                      <form action="" method="">
+
+                <div class="container-fluid show-device">
+                  <div class="row items-heading">
                      <div class="col-lg-1 col-md-1 col-sm-1 col-12">
-                     
+
                     </div>
 
                     <div class="col-lg-2 col-md-2 col-sm-2 col-12">
@@ -154,14 +156,14 @@
                   </div>
 
                   <!-- Goods Detail form -->
-                  <form action="" method="">
+
                          <!-- item -->
-                         <div class="row items">  
+                         <div class="row items">
                            <div class="col-lg-1 col-md-1 col-sm-1 col-12">
                        <img class="right-icon-img" src="{{ asset('public/images/icon-right.png') }}">
                     </div>
                     <div class="col-lg-2 col-md-2 col-sm-2 col-12">
-                       <h6>Apple iPhone 11 64GB</h6>
+                       <h6 class="device1">Apple iPhone 11 64GB</h6>
                     </div>
 
                     <div class="col-lg-2 col-md-2 col-sm-2 col-12">
@@ -173,7 +175,7 @@
                     </div>
 
                     <div class="col-lg-1 col-md-1 col-sm-1 col-12">
-                      <h6>  A HSO</h6>
+                      <h6 class="grade1">  A HSO</h6>
                     </div>
 
 
@@ -196,30 +198,32 @@
                      <h6 class="cross">  &times;</h6>
                     </div>
                   </div>
-                
+
                   <div class="row imie-form">
                     <div class="col-lg-12 col-md-12 col-12 ">
-                     <div class="imie-form-inner">  
+                     <div class="imie-form-inner">
                      <div class="d-flex justify-content-between">
-                      <input class="form-control" type="number" name="" placeholder="Enter or scan IMEI/SN/barcode or start typing names of goods" />
+                        <input type="text" class="form-control" id="imei" placeholder="Enter or scan IMEI/SN/barcode">
                          <div id="add-imie-btn"><img class="tik-icon" src="{{ asset('public/images/tik-icon.PNG')}}"></div>
-                   
+
                          </div>
                          <!-- new  IMIES list -->
-                      <table class="imie-table"> 
+                      <table class="imie-table">
+                        <tr>
+                            <td id="imei-list"></td>
+                        </tr>
                       </table>
-                      </div>  
+                      </div>
 
                     </div>
 
                   </div>
-                  <input type="Submit" name="" value="Submit" class="btn btn-primary mt-3">
-              </form>
+
                 </div>
                   </div>
                 </div>
               <div>
-                
+
               </div>
               </div> <!-- end col -->
                </div>
@@ -235,6 +239,58 @@
 
 @section('customJS')
 <script>
-console.log('Demo JS')
+   document.addEventListener("DOMContentLoaded", function () {
+    const addGoodsBtn = document.getElementById("add-goods-btn");
+
+    addGoodsBtn.addEventListener("click", function () {
+        const deviceSelect = document.getElementById("device-select");
+        const gradeSelect = document.getElementById("grade-select");
+        const purchasePriceInput = document.getElementById("purchase-price");
+
+        // Get selected device and grade values
+        const deviceId = deviceSelect.value;
+        const gradeId = gradeSelect.value;
+        const purchasePrice = purchasePriceInput.value;
+
+        // Validate input (you can add more validation)
+        if (!deviceId || !gradeId || !purchasePrice) {
+            alert("Please select a device, grade, and enter purchase price.");
+            return;
+        }
+
+        // Send data to the server using Ajax
+        const formData = new FormData();
+        formData.append("device_id", deviceId);
+        formData.append("grade_id", gradeId);
+        formData.append("purchase_price", purchasePrice);
+
+        fetch("{{ route('add-batch-device') }}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update the content of the specific div elements
+                const deviceNameElement = document.querySelector(".device1");
+                const gradeNameElement = document.querySelector(".grade1");
+
+                // Update the content of the elements
+                deviceNameElement.textContent = data.deviceName; // Update with device name
+                gradeNameElement.textContent = data.gradeName;   // Update with grade name
+            } else {
+                alert("Failed to add the device.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+});
+
 </script>
+
 @endsection

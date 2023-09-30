@@ -7,6 +7,9 @@ use App\Models\Supplier;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Device;
+use App\Models\Grade;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class BatchController extends Controller
@@ -20,15 +23,11 @@ class BatchController extends Controller
         // dd($batches);
         return view('Purchases.batch.index', compact('batches'));
 
-    }    
-
-    public function batch_detail()
-        {
-
-            // dd($batches);
-            return view('purchases.batch.batch_detail');
-
-        }
+    }
+    public function forget()
+    {
+        session()->forget('batch_detail');
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -54,6 +53,7 @@ class BatchController extends Controller
         ]);
         if ($validator->passes()) {
             $input = $request->all();
+            Session::put('batch_detail', $input);
             // $input['status'] = 'disbale';
             $input['user_id'] = auth()->user()->id;
             Batch::create($input);
@@ -71,6 +71,47 @@ class BatchController extends Controller
             ]);
         }
     }
+
+    public function batch_detail()
+    {
+        $batch_detail = Session::get('batch_detail');
+        $supplier = Supplier::where('id',$batch_detail['supplier_id'])->first();
+        $warehouse = Warehouse::where('id',$batch_detail['warehouse_id'])->first();
+
+        $devices = Device::all();
+        $grades = Grade::all();
+        //   dd($warehouse);
+        return view('purchases.batch.batch_detail',compact('batch_detail','supplier','warehouse','devices','grades'));
+
+    }
+
+    public function addBatchDevice(Request $request)
+        {
+            // Retrieve data from the request
+            $deviceId = $request->input('device_id');
+            $gradeId = $request->input('grade_id');
+            $purchasePrice = $request->input('purchase_price');
+
+            // Retrieve device and grade names from the database
+            $device = Device::where('id', $deviceId)->first();
+            $grade = Grade::where('id', $gradeId)->first();
+
+            // Validate and process the data as needed
+            // For example, you can store the device information in the session
+
+            // Create an HTML representation of the added device with device name and grade name
+            $deviceHtml = "<td class='device1'></td><td class='grade1'></td><td>{$purchasePrice}</td>";
+
+            // Return a JSON response with the HTML, device name, and grade name
+            return response()->json([
+                'success' => true,
+                'html' => $deviceHtml,
+                'deviceName' => $device->name,
+                'gradeName' => $grade->name,
+            ]);
+        }
+
+
 
 
     /**
