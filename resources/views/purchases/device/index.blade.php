@@ -26,11 +26,20 @@
                         </tr>
                       </thead>
                       <tbody>
+
+                            @foreach ($devices as $device)
                             <tr>
-                              <td>1</td>
-                              <td>Iphone 11 Black 22 GB</td>
-                              <td><a href="#" class="btn btn-info">Edit</a><a class="btn btn-danger pl-3">Delete</a></td>
-                            </tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $device->name }}</td>
+
+                                <td><a href="{{ route('device.edit', $device->id) }}" class="btn btn-info">Edit</a>
+                                    &nbsp;<a class="btn btn-danger pl-3" href="javascript:void(0)"
+                                    id="delete-device"
+                                    data-url="{{ route('device.destroy', $device->id) }}">Delete</a></td>
+
+                              </tr>
+                            @endforeach
+
                       </tbody>
                     </table>
                   </div>
@@ -45,10 +54,57 @@
   </div>
 </div>
 </div>
+
+
+
+<!-- Delete Modal start -->
+<div class="modal fade" id="exampleModal61" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Device Deleted Successfully</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Delete Modal end -->
 @endsection
 
 @section('customJS')
-<script>
-console.log('Demo JS')
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('table').on('click', '#delete-device', function () {
+
+          var deviceURL = $(this).data('url');
+          var trObj = $(this);
+
+          if(confirm("Are you sure you want to remove this Device?") == true){
+                $.ajax({
+                    url: deviceURL,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function(data) {
+                        trObj.parents("tr").remove();
+                        let modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('exampleModal61'))
+                        modal.show();
+                        modal.hide();
+                    }
+                });
+          }
+
+       });
+
+    });
+
 </script>
 @endsection

@@ -67,7 +67,9 @@ class WarehouseController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $warehouse = Warehouse::find($id);
+        // dd($supplier);
+        return view('purchases.warehouse.edit',compact('warehouse'));
     }
 
     /**
@@ -75,7 +77,27 @@ class WarehouseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'location' => 'required'
+        ]);
+        $warehouse = Warehouse::find($id);
+        if ($validator->passes()) {
+            $input = $request->all();
+            $warehouse->update($input);
+
+            $request->session()->flash('success', 'Warehouse Updated successfully');
+            return response()->json([
+                'status' => true,
+                'message' =>'Warehouse Updated successfully'
+            ]);
+        }
+        else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
     }
 
     /**
@@ -83,6 +105,8 @@ class WarehouseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Warehouse::find($id)->delete();
+
+        return response()->json(['success'=>'Warehouse Deleted Successfully!']);
     }
 }

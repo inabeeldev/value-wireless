@@ -33,7 +33,10 @@
                                                              <td>{{ $loop->iteration }}</td>
                                                              <td>{{ $w->name }}</td>
                                                              <td>{{ $w->location }}</td>
-                                                             <td><a href="#" class="btn btn-info">Edit</a><a class="btn btn-danger pl-3">Delete</a></td>
+                                                             <td><a href="{{ route('warehouse.edit', $w->id) }}" class="btn btn-info">Edit</a>
+                                                                &nbsp;<a class="btn btn-danger pl-3" href="javascript:void(0)"
+                                                                id="delete-warehouse"
+                                                                data-url="{{ route('warehouse.destroy', $w->id) }}">Delete</a></td>
 
                                                          </tr>
                                                        @endforeach
@@ -52,4 +55,59 @@
         </div>
     </div>
 
+
+<!-- Delete Modal start -->
+    <div class="modal fade" id="exampleModal50" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Warehouse Deleted Successfully</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Delete Modal end -->
+
+
+@endsection
+
+
+@section('customJS')
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+
+        $('table').on('click', '#delete-warehouse', function () {
+
+          var warehouseURL = $(this).data('url');
+          var trObj = $(this);
+
+          if(confirm("Are you sure you want to remove this Warehouse?") == true){
+                $.ajax({
+                    url: warehouseURL,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function(data) {
+                        trObj.parents("tr").remove();
+                        let modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('exampleModal50'))
+                        modal.show();
+                        modal.hide();
+                    }
+                });
+          }
+
+       });
+
+    });
+
+</script>
 @endsection

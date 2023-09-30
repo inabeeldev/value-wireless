@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\grade;
 
 use App\Http\Controllers\Controller;
+use App\Models\Grade;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class GradeController extends Controller
 {
@@ -12,7 +15,8 @@ class GradeController extends Controller
      */
     public function index()
     {
-  return view('purchases.grades.index');
+        $grades = Grade::all();
+        return view('purchases.grade.index', compact('grades'));
     }
 
     /**
@@ -20,7 +24,7 @@ class GradeController extends Controller
      */
     public function create()
     {
-        return view('purchases.grades.create');
+        return view('purchases.grade.create');
     }
 
     /**
@@ -28,7 +32,25 @@ class GradeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required'
+        ]);
+        if ($validator->passes()) {
+            $input = $request->all();
+            Grade::create($input);
+
+            $request->session()->flash('success', 'Grade added successfully');
+            return response()->json([
+                'status' => true,
+                'message' =>'Grade added successfully'
+            ]);
+        }
+        else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
     }
 
     /**
@@ -44,7 +66,9 @@ class GradeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $grade = Grade::find($id);
+        // dd($supplier);
+        return view('purchases.grade.edit',compact('grade'));
     }
 
     /**
@@ -52,14 +76,38 @@ class GradeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($id);
+        $validator = Validator::make($request->all(),[
+            'name' => 'required'
+        ]);
+        $Grade = Grade::find($id);
+        if ($validator->passes()) {
+            $input = $request->all();
+            $Grade->update($input);
+
+            $request->session()->flash('success', 'Grade Updated successfully');
+            return response()->json([
+                'status' => true,
+                'message' =>'Grade Updated successfully'
+            ]);
+        }
+        else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
+
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        Grade::find($id)->delete();
+
+        return response()->json(['success'=>'Grade Deleted Successfully!']);
     }
 }
