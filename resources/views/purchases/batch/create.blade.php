@@ -46,7 +46,7 @@
 
                     <div class="form-group">
                       <label for="">Paid</label>
-                      <input type="text" name="paid" placeholder="د.إ 0"  class="form-control" id="paid">
+                      <input type="number" name="paid" placeholder="د.إ 0"  class="form-control" id="paid">
                       <p></p>
                     </div>
                     <div class="form-group">
@@ -182,7 +182,7 @@
 
                 if (response['status'] == true) {
 
-                    window.location.href = "{{ route('batch.index') }}"
+                    window.location.href = "{{ route('batch-detail') }}"
 
                     $('#batch_no').removeClass('is-invalid')
                         .siblings('p')

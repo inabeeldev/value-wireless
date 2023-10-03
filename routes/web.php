@@ -23,9 +23,11 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/batch-detail', [BatchController::class, 'batch_detail'])->name('batch-detail');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/forget-sessions', [BatchController::class, 'forget'])->name('batch-detail');
 Route::resource('batch', BatchController::class);
+Route::get('/batch-detail', [BatchController::class, 'batch_detail'])->name('batch-detail');
+Route::post('/add-batch-device', [BatchController::class, 'addBatchDevice'])->name('add-batch-device');
 Route::resource('supplier', SupplierController::class);
 Route::resource('warehouse',WarehouseController::class);
 Route::resource('device',DeviceController::class);
