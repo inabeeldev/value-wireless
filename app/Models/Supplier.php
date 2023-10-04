@@ -13,8 +13,8 @@ class Supplier extends Model
     use HasFactory;
     protected $guarded = [];
 
-    // public function batch(): HasMany
-    // {
-    //     return $this->hasMany(Batch::class , 'id','supplier_id');
-    // }
+    public function batch(): HasMany
+    {
+        return $this->hasMany(Batch::class , 'id','supplier_id');
+    }
 }
