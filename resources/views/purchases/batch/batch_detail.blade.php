@@ -69,10 +69,11 @@
                             <div class="card-body">
                                 <div class="container-fluid">
                                     <div class="row">
-                                        <h2> Add Devices</h2>
+                                        <h2>Add Devices</h2>
+                                        <div id="loader" class="loader" style="display: none;"></div>
                                         <!-- Device selection dropdown -->
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-12">
-                                            <select class="form-control" id="device-select">
+                                            <select class="form-control" id="deviceSelect">
                                                 <option value="">Select Device</option>
                                                 @foreach($devices as $device)
                                                     <option value="{{ $device->id }}">{{ $device->name }}</option>
@@ -81,7 +82,7 @@
                                         </div>
                                         <!-- Grade selection dropdown -->
                                         <div class="col-lg-2 col-md-2 col-sm-3 col-12">
-                                            <select class="form-control" id="grade-select">
+                                            <select class="form-control" id="gradeSelect">
                                                 <option value="">Select Grade</option>
                                                 @foreach($grades as $grade)
                                                     <option value="{{ $grade->id }}">{{ $grade->name }}</option>
@@ -90,11 +91,11 @@
                                         </div>
                                         <!-- Purchase price input -->
                                         <div class="col-lg-3 col-md-3 col-sm-3 col-12">
-                                            <input type="text" class="form-control" id="purchase-price" placeholder="Purchase price">
+                                            <input type="text" class="form-control" id="purchasePrice" placeholder="Purchase price">
                                         </div>
                                         <!-- Add Goods button -->
                                         <div class="col-lg-2 col-md-2 col-sm-3 col-12">
-                                            <button type="button" class="form-control btn btn-info" id="add-goods-btn">Add Goods</button>
+                                            <button type="button" class="form-control btn btn-info" id="addDeviceBtn">Add Goods</button>
                                         </div>
                                     </div>
                                 </div>
@@ -105,6 +106,18 @@
               <!-- Add device Form end -->
               </div> <!-- end col -->
                </div>
+
+               <div id="imeiSection" style="display: none;">
+                <h2>Add IMEI Numbers</h2>
+                <input type="text" id="imeiInput" placeholder="IMEI">
+                <button id="addImeiBtn">Add IMEI</button>
+            </div>
+
+            <!-- Display Added Devices and IMEI Numbers -->
+            <div id="deviceList">
+                <h2>Added Devices</h2>
+                <!-- Devices and IMEI numbers will be displayed here -->
+            </div>
 
                      <div class="card">
                     <div class="card-body">
@@ -238,7 +251,7 @@
 @endsection
 
 @section('customJS')
-<script>
+{{-- <script>
    document.addEventListener("DOMContentLoaded", function () {
     const addGoodsBtn = document.getElementById("add-goods-btn");
 
@@ -291,6 +304,163 @@
     });
 });
 
-</script>
+</script> --}}
 
+
+
+{{-- <script>
+    $(document).ready(function() {
+        // Add a New Device
+        $('#addDeviceBtn').click(function() {
+            var selectedDevice = $('#deviceSelect').val();
+            var selectedGrade = $('#gradeSelect').val();
+            var purchasePrice = $('#purchasePrice').val();
+
+            // Make an AJAX request to store the device
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('add-purchase-device') }}",
+                data: {
+                    device_id: selectedDevice,
+                    grade_id: selectedGrade,
+                    purchase_price: purchasePrice,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Show the IMEI input section
+                    $('#imeiSection').show();
+                    // Store the device ID
+                    var deviceID = response.device_id;
+                    // Attach the device ID to the Add IMEI button
+                    $('#addImeiBtn').data('device_id', deviceID);
+                    // Display device name and grade name
+                    var deviceName = $('#deviceSelect option:selected').text();
+                    var gradeName = $('#gradeSelect option:selected').text();
+                    $('#deviceName').text(deviceName);
+                    $('#gradeName').text(gradeName);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        // Add IMEI Number
+        $('#addImeiBtn').click(function() {
+            var deviceID = $(this).data('device_id');
+            var imei = $('#imeiInput').val();
+
+            // Make an AJAX request to store the IMEI number
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('add-imei') }}",
+                data: {
+                    device_id: deviceID,
+                    imei: imei,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Add the IMEI number to the device list
+                    $('#devices').append('<li>' + response.imei + '</li>');
+                    // Clear the IMEI input
+                    $('#imeiInput').val('');
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script> --}}
+
+
+
+
+<script>
+    $(document).ready(function() {
+    // Add a New Device
+    $('#addDeviceBtn').click(function() {
+        var selectedDevice = $('#deviceSelect').val();
+        var selectedGrade = $('#gradeSelect').val();
+        var purchasePrice = $('#purchasePrice').val();
+
+        $('#loader').show();
+        // Make an AJAX request to store the device
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('add-purchase-device') }}",
+            data: {
+                device_id: selectedDevice,
+                grade_id: selectedGrade,
+                purchase_price: purchasePrice,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+
+                $('#loader').hide();
+                console.log(response);
+                // Create a new section for the added device
+                var deviceSection = $('<div class="device-section">');
+                deviceSection.data('device-id', response.device_id); // Store the device_id
+                deviceSection.append('<h2>' + response.deviceName + '</h2>');
+
+                // Create a container for IMEI numbers
+                var imeiContainer = $('<div class="imei-container">');
+
+                // IMEI input
+                imeiContainer.append('<input type="text" class="imei-input" placeholder="IMEI">');
+
+                // Add IMEI button
+                imeiContainer.append('<button class="add-imei-btn">Add new IMEI</button>');
+
+                // List to display IMEI numbers
+                imeiContainer.append('<ul class="imei-list"></ul>');
+
+                deviceSection.append(imeiContainer);
+
+                // Append the new device section to the deviceList
+                $('#deviceList').append(deviceSection);
+
+                // Clear input fields
+                $('#deviceSelect').val('');
+                $('#gradeSelect').val('');
+                $('#purchasePrice').val('');
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+    // Add IMEI Number
+    $(document).on('click', '.add-imei-btn', function() {
+        var imeiInput = $(this).siblings('.imei-input');
+        var deviceID = $(this).closest('.device-section').data('device-id');
+        var imei = imeiInput.val();
+
+        // Make an AJAX request to store the IMEI number
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('add-imei') }}",
+            data: {
+                device_id: deviceID,
+                imei: imei,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                // Add the IMEI number to the corresponding device's list
+                var imeiList = imeiInput.siblings('.imei-list');
+                imeiList.append('<li>' + response.imei + '</li>');
+
+                // Clear the IMEI input
+                imeiInput.val('');
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+});
+
+</script>
 @endsection
