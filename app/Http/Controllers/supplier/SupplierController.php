@@ -109,6 +109,8 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
+        //  return $id;
+
         Supplier::find($id)->delete();
 
         return response()->json(['success'=>'Supplier Deleted Successfully!']);

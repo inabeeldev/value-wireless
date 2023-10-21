@@ -11,25 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('batches', function (Blueprint $table) {
+        Schema::create('purchased_devices', function (Blueprint $table) {
             $table->id();
-            $table->string('batch_no');
-            $table->bigInteger('paid');
-            $table->mediumText('comment');
-            $table->foreignId('supplier_id')
+            $table->foreignId('batch_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreignId('device_id')
             ->constrained()
             ->onUpdate('cascade')
             ->onDelete('cascade');
 
         // Define the foreign key constraint for warehouse_id with cascade options
-            $table->foreignId('warehouse_id')
+            $table->foreignId('grade_id')
             ->constrained()
             ->onUpdate('cascade')
             ->onDelete('cascade');
-            $table->foreignId('user_id')->constrained();
-            $table->enum('status', ['enable', 'disable'])->default('disable');
+            $table->decimal('purchase_price', 10, 2);
+            $table->integer('quantity');
             $table->timestamps();
-
         });
     }
 
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('batches');
+        Schema::dropIfExists('purchased_devices');
     }
 };

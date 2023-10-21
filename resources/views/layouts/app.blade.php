@@ -35,7 +35,7 @@
 
   <link href="{{ asset('public/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('public/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css">
-
+    @include('layouts.style')
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Scripts -->
