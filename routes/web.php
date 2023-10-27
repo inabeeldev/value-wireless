@@ -7,6 +7,10 @@ use App\Http\controllers\warehouse\WarehouseController;
 use App\Http\controllers\device\DeviceController;
 use App\Http\controllers\grade\GradeController;
 use App\Http\Controllers\product\ProductController;
+use App\Http\Controllers\manufacturer\manufacturerController;
+use App\Http\Controllers\color\colorController;
+use App\Http\Controllers\gb\gbController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +26,9 @@ use App\Http\Controllers\product\ProductController;
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('/setting', function () {
+    return view('setting.setting');
+});
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -33,6 +40,9 @@ Route::resource('supplier', SupplierController::class);
 Route::resource('warehouse',WarehouseController::class);
 Route::resource('device',DeviceController::class);
 Route::resource('grade',GradeController::class);
+Route::resource('manufacturer',manufacturerController::class);
+Route::resource('color',colorController::class);
+Route::resource('gb',gbController::class);
 Route::post('/new-devices', [ProductController::class, 'store'])->name('add-purchase-device');
 Route::post('/imei', [ProductController::class, 'storeImei'])->name('add-imei');
 
