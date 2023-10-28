@@ -26,12 +26,11 @@ use App\Http\Controllers\gb\gbController;
 Route::get('/', function () {
     return view('auth.login');
 });
-Route::get('/setting', function () {
-    return view('setting.setting');
-});
+
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/settings', [App\Http\Controllers\HomeController::class, 'setting'])->name('vw-setting');
 Route::get('/forget-sessions', [BatchController::class, 'forget'])->name('forget-sessions');
 Route::resource('batch', BatchController::class);
 Route::get('/batch-detail', [BatchController::class, 'batch_detail'])->name('batch-detail');
