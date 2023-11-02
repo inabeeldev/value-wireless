@@ -4,6 +4,7 @@ namespace App\Http\Controllers\device;
 
 use App\Http\Controllers\Controller;
 use App\Models\Device;
+use App\Models\Manufacturer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,7 +15,8 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $devices = Device::all();
+        $devices = Device::with('manufacturer')->get();
+
         return view('purchases.device.index',compact('devices'));
     }
 
@@ -23,7 +25,8 @@ class DeviceController extends Controller
      */
     public function create()
     {
-return view('purchases.device.create');
+        $manufacturers = Manufacturer::all();
+        return view('purchases.device.create', compact('manufacturers'));
     }
 
     /**
@@ -32,7 +35,8 @@ return view('purchases.device.create');
     public function store(Request $request)
     {
             $validator = Validator::make($request->all(),[
-                'name' => 'required'
+                'name' => 'required',
+                'manufacturer_id' => 'required'
             ]);
             if ($validator->passes()) {
                 $input = $request->all();

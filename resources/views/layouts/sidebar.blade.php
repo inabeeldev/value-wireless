@@ -27,12 +27,12 @@
             <span>Purchases</span>
           </a>
           <ul class="sub-menu" aria-expanded="false">
-            <li><a href="email-read.html">Purchase orders</a></li>
-            <li><a href="{{route('batch.index')}}">Batch</a></li> 
+            <li><a href="#">Purchase orders</a></li>
+            <li><a href="{{route('batch.index')}}">Batch</a></li>
             <li><a href="#">Return to Supplier</a></li>
-            <li><a href="#">Setting</a></li>
+            <li><a href="{{ route('vw-setting') }}">Setting</a></li>
 
-    
+
           </ul>
         </li>
 

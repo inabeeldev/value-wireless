@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\Manufacturer;
+use App\Models\Device;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Device extends Model
+class Manufacturer extends Model
 {
     use HasFactory;
     protected $guarded = [];
 
-    public function manufacturer()
+
+    public function devices()
     {
-        return $this->belongsTo(Manufacturer::class);
+        return $this->hasMany(Device::class);
     }
 }

@@ -12,20 +12,20 @@
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-lg-4 col-12 bg-white p-4">
                                         <h3 class="text-center">Edit Manufacturer</h3>
-                                        <form class="form-group batch-form" id="gradeForm3" name="gradeForm3" action=""  method="post">
+                                        <form class="form-group batch-form" id="manufacturerForm3" name="manufacturerForm3" action=""  method="post">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" id="editId6" value="">
+                                            <input type="hidden" id="editId6" value="{{ $manufacturer->id }}">
                                             <div class="form-group">
-                                                <label for="">Manufacturer</label>
-                                                <input class="form-control" name="name" value="" type="text" id="name">
+                                                <label for="">Manufacturer Name</label>
+                                                <input class="form-control" name="name" value="{{ $manufacturer->name }}" type="text" id="name">
                                                 <p></p>
 
                                             </div>
 
                                             <div class="form-group ">
                                                 <label for="">Comment</label>
-                                                <input class="form-control " name="comment" value="" type="text" id="comment" >
+                                                <input class="form-control " name="comment" value="{{ $manufacturer->comment }}" type="text" id="comment" >
                                                 <p></p>
 
                                             </div>
@@ -47,11 +47,11 @@
 
 @section('customJS')
     <script>
-        $("#gradeForm3").submit(function(event) {
+        $("#manufacturerForm3").submit(function(event) {
             event.preventDefault();
             var element = $(this);
             var id= $("#editId6").val();
-            var url = '{{ route("grade.update", ":id") }}';
+            var url = '{{ route("manufacturer.update", ":id") }}';
             url = url.replace(':id', id);
             $.ajax({
                 url: url,
@@ -62,7 +62,7 @@
 
                     if (response['status'] == true) {
 
-                        window.location.href = "{{ route('grade.index') }}"
+                        window.location.href = "{{ route('manufacturer.index') }}"
 
                         $('#name').removeClass('is-invalid')
                             .siblings('p')

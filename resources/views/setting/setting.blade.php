@@ -18,14 +18,14 @@
 
 
                 <div class="col-lg-3 col-12 bg-white p-4 m-3">
-              
+
                      <h3><a href="{{route('warehouse.index')}}">Warehouse</a></h3>
                 </div> <!-- end row -->
 
 
                 <div class="col-lg-3 col-12 bg-white p-4 m-3">
-               <h3><a href="{{route('device.index')}}">Device</a></h3> 
-                </div> 
+               <h3><a href="{{route('device.index')}}">Device</a></h3>
+                </div>
 
 
                 <!-- end row -->
@@ -36,13 +36,16 @@
                  <div class="col-lg-3 col-12 bg-white p-4 m-3">
                                  <h3><a href="{{route('color.index')}}">Color</a></li>
                 </div> <!-- end row -->
+                <div class="col-lg-3 col-12 bg-white p-4 m-3">
+                    <h3><a href="{{route('gb.index')}}">GB</a></li>
+                </div> <!-- end row -->
 
 
 
-            
-           
-         
-           
+
+
+
+
 
 
 
