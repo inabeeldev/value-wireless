@@ -14,28 +14,32 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-body">
-                
+                      <h4 class="card-title">Color</h4>
                       <a href="{{route('color.create')}}"class="btn btn-success">Add New Color</a>
                     </p>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>Color</th>
+                          <th>Color Name</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                                <td>1</td>
-                                <td>Zam Zam</td>
-                                <td><a href="{{ route('color.edit', 1) }}" class="btn btn-info">Edit</a>
+
+                            @foreach ($colors as $color)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $color->name }}</td>
+
+                                <td><a href="{{ route('color.edit', $color->id) }}" class="btn btn-info">Edit</a>
                                     &nbsp;<a class="btn btn-danger pl-3" href="javascript:void(0)"
-                                    id="delete-Color"
-                                    data-url="#">Delete</a></td>
+                                    id="delete-color"
+                                    data-url="{{ route('color.destroy', $color->id) }}">Delete</a></td>
 
 
                               </tr>
-                  
+                            @endforeach
 
 
                       </tbody>
@@ -82,14 +86,14 @@
 
     $(document).ready(function () {
 
-        $('table').on('click', '#delete-grade', function () {
+        $('table').on('click', '#delete-color', function () {
 
-          var gradeURL = $(this).data('url');
+          var colorURL = $(this).data('url');
           var trObj = $(this);
 
-          if(confirm("Are you sure you want to remove this Grade?") == true){
+          if(confirm("Are you sure you want to remove this Color?") == true){
                 $.ajax({
-                    url: gradeURL,
+                    url: colorURL,
                     type: 'DELETE',
                     dataType: 'json',
                     success: function(data) {

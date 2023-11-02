@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\manufacturer;
 
-use App\Http\Controllers\Controller;
+use App\Models\Manufacturer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
-class manufacturerController extends Controller
+class ManufacturerController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('purchases.manufacturer.index');
+        $manufacturers = Manufacturer::all();
+        return view('purchases.manufacturer.index', compact('manufacturers'));
     }
 
     /**
@@ -21,7 +24,6 @@ class manufacturerController extends Controller
     public function create()
     {
         return view('purchases.manufacturer.create');
-        
     }
 
     /**
@@ -29,7 +31,25 @@ class manufacturerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required'
+        ]);
+        if ($validator->passes()) {
+            $input = $request->all();
+            Manufacturer::create($input);
+
+            $request->session()->flash('success', 'Manufacturer added successfully');
+            return response()->json([
+                'status' => true,
+                'message' =>'Manufacturer added successfully'
+            ]);
+        }
+        else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
     }
 
     /**
@@ -45,8 +65,9 @@ class manufacturerController extends Controller
      */
     public function edit(string $id)
     {
-        return view('purchases.manufacturer.edit');
-        
+        $manufacturer = Manufacturer::find($id);
+        // dd($supplier);
+        return view('purchases.manufacturer.edit',compact('manufacturer'));
     }
 
     /**
@@ -54,14 +75,38 @@ class manufacturerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($id);
+        $validator = Validator::make($request->all(),[
+            'name' => 'required'
+        ]);
+        $manufacturer = Manufacturer::find($id);
+        if ($validator->passes()) {
+            $input = $request->all();
+            $manufacturer->update($input);
+
+            $request->session()->flash('success', 'Manufacturer Updated successfully');
+            return response()->json([
+                'status' => true,
+                'message' =>'Manufacturer Updated successfully'
+            ]);
+        }
+        else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
+
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        Manufacturer::find($id)->delete();
+
+        return response()->json(['success'=>'Manufacturer Deleted Successfully!']);
     }
 }

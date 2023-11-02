@@ -14,27 +14,32 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-body">
-                      <a href="{{route('gb.create')}}"class="btn btn-success">Add New GB</a>
+                      <h4 class="card-title">Gb</h4>
+                      <a href="{{route('gb.create')}}"class="btn btn-success">Add New Gb</a>
                     </p>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>GB</th>
+                          <th>Gb space</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                                <td>1</td>
-                                <td>Zam Zam</td>
-                                <td><a href="{{ route('gb.edit', 1) }}" class="btn btn-info">Edit</a>
+
+                            @foreach ($gbs as $gb)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $gb->name }}</td>
+
+                                <td><a href="{{ route('gb.edit', $gb->id) }}" class="btn btn-info">Edit</a>
                                     &nbsp;<a class="btn btn-danger pl-3" href="javascript:void(0)"
-                                    id="delete-GB"
-                                    data-url="#">Delete</a></td>
+                                    id="delete-gb"
+                                    data-url="{{ route('gb.destroy', $gb->id) }}">Delete</a></td>
 
 
                               </tr>
-                  
+                            @endforeach
 
 
                       </tbody>
@@ -60,7 +65,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">GB Deleted Successfully</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Gb Deleted Successfully</h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -81,14 +86,14 @@
 
     $(document).ready(function () {
 
-        $('table').on('click', '#delete-grade', function () {
+        $('table').on('click', '#delete-gb', function () {
 
-          var gradeURL = $(this).data('url');
+          var gbURL = $(this).data('url');
           var trObj = $(this);
 
-          if(confirm("Are you sure you want to remove this Grade?") == true){
+          if(confirm("Are you sure you want to remove this Gb?") == true){
                 $.ajax({
-                    url: gradeURL,
+                    url: gbURL,
                     type: 'DELETE',
                     dataType: 'json',
                     success: function(data) {

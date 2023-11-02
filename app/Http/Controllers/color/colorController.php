@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\color;
 
-use App\Http\Controllers\Controller;
+use App\Models\Color;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
-class colorController extends Controller
+class ColorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('purchases.color.index');
+        $colors = Color::all();
+        return view('purchases.Color.index', compact('colors'));
     }
 
     /**
@@ -20,8 +23,7 @@ class colorController extends Controller
      */
     public function create()
     {
-        return view('purchases.color.create');
-        
+        return view('purchases.Color.create');
     }
 
     /**
@@ -29,7 +31,25 @@ class colorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required'
+        ]);
+        if ($validator->passes()) {
+            $input = $request->all();
+            Color::create($input);
+
+            $request->session()->flash('success', 'Color added successfully');
+            return response()->json([
+                'status' => true,
+                'message' =>'Color added successfully'
+            ]);
+        }
+        else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
     }
 
     /**
@@ -45,25 +65,48 @@ class colorController extends Controller
      */
     public function edit(string $id)
     {
-        
-        return view('purchases.color.edit');
-
-
-            }
+        $color = Color::find($id);
+        // dd($supplier);
+        return view('purchases.Color.edit',compact('color'));
+    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($id);
+        $validator = Validator::make($request->all(),[
+            'name' => 'required'
+        ]);
+        $Color = Color::find($id);
+        if ($validator->passes()) {
+            $input = $request->all();
+            $Color->update($input);
+
+            $request->session()->flash('success', 'Color Updated successfully');
+            return response()->json([
+                'status' => true,
+                'message' =>'Color Updated successfully'
+            ]);
+        }
+        else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
+
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        Color::find($id)->delete();
+
+        return response()->json(['success'=>'Color Deleted Successfully!']);
     }
 }

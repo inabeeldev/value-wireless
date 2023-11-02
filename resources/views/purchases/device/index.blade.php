@@ -21,6 +21,7 @@
                       <thead>
                         <tr>
                           <th>#</th>
+                          <th>Manufacturer Name</th>
                           <th>Device Name</th>
                           <th>Action</th>
                         </tr>
@@ -30,6 +31,8 @@
                             @foreach ($devices as $device)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+
+                                <td>{{ $device->manufacturer->name }}</td>
                                 <td>{{ $device->name }}</td>
 
                                 <td><a href="{{ route('device.edit', $device->id) }}" class="btn btn-info">Edit</a>

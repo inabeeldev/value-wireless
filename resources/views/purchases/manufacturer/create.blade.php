@@ -12,9 +12,9 @@
             <div class="container-fluid">
               <div class="row d-flex justify-content-center">
                 <div class="col-lg-4 col-12 bg-white p-4">
-                  <form class="form-group batch-form" id="gradeForm" name="gradeForm" action=""  method="post">
+                  <form class="form-group batch-form" id="manufacturerForm" name="manufacturerForm" action=""  method="post">
                     <div class="form-group">
-                      <label for="">Manufacturer</label>
+                      <label for="">Manufacturer Name</label>
                       <input type="text" name="name"  class="form-control" id="name">
                       <p></p>
                     </div>
@@ -52,13 +52,13 @@
 
   @section('customJS')
 
- {{-- create grade ajax start --}}
+ {{-- create manufacturer ajax start --}}
  <script>
-    $("#gradeForm").submit(function(event) {
+    $("#manufacturerForm").submit(function(event) {
         event.preventDefault();
         var element = $(this);
         $.ajax({
-            url: '{{ route('grade.store') }}',
+            url: '{{ route('manufacturer.store') }}',
             type: 'post',
             data: element.serializeArray(),
             dataType: 'json',
@@ -66,7 +66,7 @@
 
                 if (response['status'] == true) {
 
-                    window.location.href = "{{ route('grade.index') }}"
+                    window.location.href = "{{ route('manufacturer.index') }}"
 
                     $('#name').removeClass('is-invalid')
                         .siblings('p')
@@ -99,6 +99,6 @@
         })
     });
 </script>
-{{-- create grade ajax end --}}
+{{-- create manufacturer ajax end --}}
 
 @endsection

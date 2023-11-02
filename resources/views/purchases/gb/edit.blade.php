@@ -11,21 +11,21 @@
                             <div class="container-fluid">
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-lg-4 col-12 bg-white p-4">
-                                        <h3 class="text-center">Edit GB</h3>
-                                        <form class="form-group batch-form" id="gradeForm3" name="gradeForm3" action=""  method="post">
+                                        <h3 class="text-center">Edit Gb Space</h3>
+                                        <form class="form-group batch-form" id="gbForm3" name="gbForm3" action=""  method="post">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" id="editId6" value="">
+                                            <input type="hidden" id="editId6" value="{{ $gb->id }}">
                                             <div class="form-group">
-                                                <label for="">GB</label>
-                                                <input class="form-control" name="name" value="" type="text" id="name">
+                                                <label for="">Gb Name</label>
+                                                <input class="form-control" name="name" value="{{ $gb->name }}" type="text" id="name">
                                                 <p></p>
 
                                             </div>
 
                                             <div class="form-group ">
                                                 <label for="">Comment</label>
-                                                <input class="form-control " name="comment" value="" type="text" id="comment" >
+                                                <input class="form-control " name="comment" value="{{ $gb->comment }}" type="text" id="comment" >
                                                 <p></p>
 
                                             </div>
@@ -47,11 +47,11 @@
 
 @section('customJS')
     <script>
-        $("#gradeForm3").submit(function(event) {
+        $("#gbForm3").submit(function(event) {
             event.preventDefault();
             var element = $(this);
             var id= $("#editId6").val();
-            var url = '{{ route("grade.update", ":id") }}';
+            var url = '{{ route("gb.update", ":id") }}';
             url = url.replace(':id', id);
             $.ajax({
                 url: url,
@@ -62,7 +62,7 @@
 
                     if (response['status'] == true) {
 
-                        window.location.href = "{{ route('grade.index') }}"
+                        window.location.href = "{{ route('gb.index') }}"
 
                         $('#name').removeClass('is-invalid')
                             .siblings('p')

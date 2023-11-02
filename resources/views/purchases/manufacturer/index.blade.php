@@ -14,28 +14,32 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-body">
-               
+                      <h4 class="card-title">Manufacturer</h4>
                       <a href="{{route('manufacturer.create')}}"class="btn btn-success">Add New Manufacturer</a>
                     </p>
                     <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>Manufacturer</th>
+                          <th>Manufacturer Name</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                                <td>1</td>
-                                <td>Zam Zam</td>
-                                <td><a href="{{ route('manufacturer.edit', 1) }}" class="btn btn-info">Edit</a>
+
+                            @foreach ($manufacturers as $manufacturer)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $manufacturer->name }}</td>
+
+                                <td><a href="{{ route('manufacturer.edit', $manufacturer->id) }}" class="btn btn-info">Edit</a>
                                     &nbsp;<a class="btn btn-danger pl-3" href="javascript:void(0)"
                                     id="delete-manufacturer"
-                                    data-url="#">Delete</a></td>
+                                    data-url="{{ route('manufacturer.destroy', $manufacturer->id) }}">Delete</a></td>
 
 
                               </tr>
-                  
+                            @endforeach
 
 
                       </tbody>
@@ -82,14 +86,14 @@
 
     $(document).ready(function () {
 
-        $('table').on('click', '#delete-grade', function () {
+        $('table').on('click', '#delete-manufacturer', function () {
 
-          var gradeURL = $(this).data('url');
+          var manufacturerURL = $(this).data('url');
           var trObj = $(this);
 
-          if(confirm("Are you sure you want to remove this Grade?") == true){
+          if(confirm("Are you sure you want to remove this Manufacturer?") == true){
                 $.ajax({
-                    url: gradeURL,
+                    url: manufacturerURL,
                     type: 'DELETE',
                     dataType: 'json',
                     success: function(data) {

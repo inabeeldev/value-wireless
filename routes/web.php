@@ -39,9 +39,9 @@ Route::resource('supplier', SupplierController::class);
 Route::resource('warehouse',WarehouseController::class);
 Route::resource('device',DeviceController::class);
 Route::resource('grade',GradeController::class);
-Route::resource('manufacturer',manufacturerController::class);
-Route::resource('color',colorController::class);
-Route::resource('gb',gbController::class);
+Route::resource('manufacturer',ManufacturerController::class);
+Route::resource('color',ColorController::class);
+Route::resource('gb',GbController::class);
 Route::post('/new-devices', [ProductController::class, 'store'])->name('add-purchase-device');
 Route::post('/imei', [ProductController::class, 'storeImei'])->name('add-imei');
 
