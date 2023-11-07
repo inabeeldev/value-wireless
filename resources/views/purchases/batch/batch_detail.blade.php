@@ -68,17 +68,53 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="container-fluid">
-                                    <div class="row">
-                                        <h2>Add Devices</h2>
                                         <div id="loader" class="loader" style="display: none;"></div>
+
+                                    <div class="row justify-content-end">
+                                        <h2>Add Devices</h2>
                                         <!-- Device selection dropdown -->
-                                        <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+                                              <div class="col-lg-2 col-md-2 col-sm-2 col-12">
+                                            <select class="form-control" id="">
+                                                <option value="">Select Manufacturer</option>
+                                                <option>Apple</option>
+                                              <option>Samsung</option>
+
+                                            </select>
+                                              <a href="">Add new Manufacturer</a>
+
+                                        </div>
+
+                                        
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-12">
                                             <select class="form-control" id="deviceSelect">
-                                                <option value="">Select Device</option>
+                                                <option value="">Select Model</option>
+
                                                 @foreach($devices as $device)
                                                     <option value="{{ $device->id }}">{{ $device->name }}</option>
                                                 @endforeach
+
                                             </select>
+                                              <a href="">Add new Model</a>
+
+                                        </div>
+                                          <div class="col-lg-2 col-md-2 col-sm-2 col-12">
+                                            <select class="form-control" id="">
+                                                <option value="">Select Color</option>
+
+                                      
+                                            </select>
+                                              <a href="">Add new Color</a>
+
+                                        </div>
+                                          <div class="col-lg-2 col-md-2 col-sm-2 col-12">
+                                            <select class="form-control" id="">
+                                                <option value="">Select GB</option>
+
+                                           
+
+                                            </select>
+                                              <a href="">Add new GB</a>
+
                                         </div>
                                         <!-- Grade selection dropdown -->
                                         <div class="col-lg-2 col-md-2 col-sm-3 col-12">
@@ -88,13 +124,15 @@
                                                     <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                                 @endforeach
                                             </select>
+                                              <a href="">Add new grade</a>
+
                                         </div>
                                         <!-- Purchase price input -->
-                                        <div class="col-lg-3 col-md-3 col-sm-3 col-12">
-                                            <input type="text" class="form-control" id="purchasePrice" placeholder="Purchase price">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-12">
+                                            <input type="text" class="form-control" id="purchasePrice" placeholder="Total Amount">
                                         </div>
                                         <!-- Add Goods button -->
-                                        <div class="col-lg-2 col-md-2 col-sm-3 col-12">
+                                        <div class="col-lg-2 col-md-2 col-sm-2 col-12">
                                             <button type="button" class="form-control btn btn-info" id="addDeviceBtn">Add Goods</button>
                                         </div>
                                     </div>
@@ -114,19 +152,10 @@
             </div>
 
             <!-- Display Added Devices and IMEI Numbers -->
-            <div id="deviceList">
-                <h2>Added Devices</h2>
-                <!-- Devices and IMEI numbers will be displayed here -->
-            </div>
+       
+       <div class="container-fluid"> 
 
-                     <div class="card">
-                    <div class="card-body">
-                 <div class="row">
-                     <div class="col-12">
-                      <form action="" method="">
-
-                <div class="container-fluid show-device">
-                  <div class="row items-heading">
+        <div class="row items-heading">
                      <div class="col-lg-1 col-md-1 col-sm-1 col-12">
 
                     </div>
@@ -144,6 +173,9 @@
                     </div>
 
                     <div class="col-lg-1 col-md-1 col-sm-1 col-12">
+                      <h6>  GB</h6>
+                    </div>
+                      <div class="col-lg-1 col-md-1 col-sm-1 col-12">
                       <h6>  Grade</h6>
                     </div>
 
@@ -163,83 +195,31 @@
                        <h6>  Amount</h6>
                     </div>
 
-                     <div class="col-lg-1 col-md-1 col-sm-1 col-12">
-                     <h6>  Cross</h6>
-                    </div>
-                  </div>
-
-                  <!-- Goods Detail form -->
-
-                         <!-- item -->
-                         <div class="row items">
-                           <div class="col-lg-1 col-md-1 col-sm-1 col-12">
-                       <img class="right-icon-img" src="{{ asset('public/images/icon-right.png') }}">
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-12">
-                       <h6 class="device1">Apple iPhone 11 64GB</h6>
-                    </div>
-
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-12">
-                     <h6></h6>
-                    </div>
-
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-12">
-                      <h6>  </h6>
-                    </div>
-
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-12">
-                      <h6 class="grade1">  A HSO</h6>
-                    </div>
+                                       </div>
+                    
 
 
-                    <div class="col-lg-1 col-md-1 col-sm-1 col-12">
-                     <h6> </h6>
-                    </div>
 
-                      <div class="col-lg-1 col-md-1 col-sm-1 col-12">
-                     <h6> 1</h6>
-                    </div>
-                     <div class="col-lg-1 col-md-1 col-sm-1 col-12">
-                      <h6>   <h6> <input type="text" name="" class="form-control"></h6></h6>
-                    </div>
+      <div class="row">
+        <div class="col-lg-12">
+            <div class="row-imie p-3 " id="row-imie">
+          
+              <div id="deviceList" class="">
+               
+                <!-- Devices and IMEI numbers will be displayed here -->
+            </div>
+         </div>
+        </div>
+      </div>
 
-                     <div class="col-lg-1 col-md-1 col-sm-1 col-12">
-                       <h6>  0 ADE</h6>
-                    </div>
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 d-flex justify-content-center">
+          <button class="btn btn-success m-3">Create Batch</button>
+          <button class="btn btn-danger m-3">Cancel Batch</button>
 
-                     <div class="col-lg-1 col-md-1 col-sm-1 col-12">
-                     <h6 class="cross">  &times;</h6>
-                    </div>
-                  </div>
-
-                  <div class="row imie-form">
-                    <div class="col-lg-12 col-md-12 col-12 ">
-                     <div class="imie-form-inner">
-                     <div class="d-flex justify-content-between">
-                        <input type="text" class="form-control" id="imei" placeholder="Enter or scan IMEI/SN/barcode">
-                         <div id="add-imie-btn"><img class="tik-icon" src="{{ asset('public/images/tik-icon.PNG')}}"></div>
-
-                         </div>
-                         <!-- new  IMIES list -->
-                      <table class="imie-table">
-                        <tr>
-                            <td id="imei-list"></td>
-                        </tr>
-                      </table>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-                  </div>
-                </div>
-              <div>
-
-              </div>
-              </div> <!-- end col -->
-               </div>
+        </div>
+      </div>
+</div>
           </div> <!-- container-fluid -->
         </div>
         <!-- End Page-content -->
@@ -402,19 +382,41 @@
                 // Create a new section for the added device
                 var deviceSection = $('<div class="device-section">');
                 deviceSection.data('device-id', response.device_id); // Store the device_id
-                deviceSection.append('<h2>' + response.deviceName + '</h2>');
+                // deviceSection.append('<h2>' + response.deviceName + '</h2>');
 
                 // Create a container for IMEI numbers
-                var imeiContainer = $('<div class="imei-container">');
+                var imeiContainer = $('<div id="arrow-click" class="imei-container items p-3 row">');
+                 
+                imeiContainer.append('   <div  class=" right-icon-img col-lg-1 col-md-1 col-sm-1 col-12">'+
+                       '</div>');
+
+
+                imeiContainer.append('<div class="col-lg-2 col-md-2 col-sm-2 col-12"><h5>' + response.deviceName + '</h5></div>');
+                imeiContainer.append('<div class="col-lg-2 col-md-2 col-sm-2 col-12"><h5></h5></div>');
+
+                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><h5>Green</h5></div>');
+                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><h5>64</h5></div>');
+                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><h5>A++</h5></div>');
+                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><h5>draft</h5></div>');
+
+                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><input class="form-control" text="type" value="5"/></div>');
+                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><input class="form-control" tyep="text"/></div>');
+                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12">10 ADE</div>');
+
+
+
+
 
                 // IMEI input
-                imeiContainer.append('<input type="text" class="imei-input" placeholder="IMEI">');
+                imeiContainer.append('<input type="text" class="imei-input form-control" placeholder="IMEI" />' );
 
                 // Add IMEI button
-                imeiContainer.append('<button class="add-imei-btn">Add new IMEI</button>');
+                imeiContainer.append('<button id="add-new-imi-btn" class="add-imei-btn btn btn-info">Add new IMEI</button>');
 
                 // List to display IMEI numbers
-                imeiContainer.append('<ul class="imei-list"></ul>');
+                imeiContainer.append('<ol class="imei-list imie-form-inner"></ol>');
+                // imeiContainer.append('<i id="delete-model-section" class="fa fa-facebook">X</i>');
+
 
                 deviceSection.append(imeiContainer);
 
@@ -450,7 +452,8 @@
             success: function(response) {
                 // Add the IMEI number to the corresponding device's list
                 var imeiList = imeiInput.siblings('.imei-list');
-                imeiList.append('<li>' + response.imei + '</li>');
+                imeiList.append('<li id="row">' + response.imei + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" id="DeleteRow" type="button" data="'+ response.imei +'">'+ 
+                '<i class="bi bi-trash">  <h6 class="cross mini">  &times;</h6></i></button> </div></div> </div> </li>');
 
                 // Clear the IMEI input
                 imeiInput.val('');
@@ -460,7 +463,25 @@
             }
         });
     });
+
+// document.addEventListener("DOMContentLoaded", function() {
+//          document.getElementById("#arrow-click").click(function(){
+//       console.log('hi');
+
+
+// });
+
+// });
+
+
+
+ 
 });
+
+
+
+
+
 
 </script>
 @endsection
