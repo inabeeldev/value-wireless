@@ -17,6 +17,12 @@ return new class extends Migration
             ->constrained()
             ->onUpdate('cascade')
             ->onDelete('cascade');
+
+            $table->foreignId('manufacturer_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
             $table->foreignId('device_id')
             ->constrained()
             ->onUpdate('cascade')
@@ -27,6 +33,17 @@ return new class extends Migration
             ->constrained()
             ->onUpdate('cascade')
             ->onDelete('cascade');
+
+            $table->foreignId('gb_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
+            $table->foreignId('color_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
             $table->decimal('purchase_price', 10, 2);
             $table->integer('quantity');
             $table->timestamps();
