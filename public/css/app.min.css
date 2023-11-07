@@ -57,8 +57,11 @@ margin-right:10px !important;
 	display: block;
 }
 .rotate{
-	 transform: rotate(90deg);
+
+  transform: rotate(90deg);
 }
+
+
 .input-group-prepend {
     display: flex;
     align-items: center;

@@ -14,7 +14,7 @@ class ProductController extends Controller
     {
         $device = PurchasedDevice::create([
             'device_id' => $request->input('device_id'),
-            'batch_id' => 12,
+            'batch_id' => 5,
             'grade_id' => $request->input('grade_id'),
             'purchase_price' => $request->input('purchase_price'),
             'quantity' => 5,
