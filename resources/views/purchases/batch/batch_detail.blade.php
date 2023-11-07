@@ -74,17 +74,17 @@
                                         <h2>Add Devices</h2>
                                         <!-- Device selection dropdown -->
                                               <div class="col-lg-2 col-md-2 col-sm-2 col-12">
-                                            <select class="form-control" id="">
+                                            <select class="form-control" id="manufacturerSelect">
                                                 <option value="">Select Manufacturer</option>
-                                                <option>Apple</option>
-                                              <option>Samsung</option>
-
+                                                @foreach ($manufacturers as $manufacturer)
+                                                <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
+                                                @endforeach
                                             </select>
                                               <a href="">Add new Manufacturer</a>
 
                                         </div>
 
-                                        
+
                                         <div class="col-lg-2 col-md-2 col-sm-2 col-12">
                                             <select class="form-control" id="deviceSelect">
                                                 <option value="">Select Model</option>
@@ -98,23 +98,23 @@
 
                                         </div>
                                           <div class="col-lg-2 col-md-2 col-sm-2 col-12">
-                                            <select class="form-control" id="">
+                                            <select class="form-control" id="colorSelect">
                                                 <option value="">Select Color</option>
-
-                                      
+                                                @foreach($colors as $color)
+                                                    <option value="{{ $color->id }}">{{ $color->name }}</option>
+                                                @endforeach
                                             </select>
                                               <a href="">Add new Color</a>
 
                                         </div>
                                           <div class="col-lg-2 col-md-2 col-sm-2 col-12">
-                                            <select class="form-control" id="">
+                                            <select class="form-control" id="gbSelect">
                                                 <option value="">Select GB</option>
-
-                                           
-
+                                                @foreach($gbs as $gb)
+                                                    <option value="{{ $gb->id }}">{{ $gb->name }}</option>
+                                                @endforeach
                                             </select>
                                               <a href="">Add new GB</a>
-
                                         </div>
                                         <!-- Grade selection dropdown -->
                                         <div class="col-lg-2 col-md-2 col-sm-3 col-12">
@@ -130,6 +130,7 @@
                                         <!-- Purchase price input -->
                                         <div class="col-lg-2 col-md-2 col-sm-2 col-12">
                                             <input type="text" class="form-control" id="purchasePrice" placeholder="Total Amount">
+                                            <input type="text" id="batchSelect" value="{{ $batch_detail['id'] }}">
                                         </div>
                                         <!-- Add Goods button -->
                                         <div class="col-lg-2 col-md-2 col-sm-2 col-12">
@@ -152,8 +153,8 @@
             </div>
 
             <!-- Display Added Devices and IMEI Numbers -->
-       
-       <div class="container-fluid"> 
+
+       <div class="container-fluid">
 
         <div class="row items-heading">
                      <div class="col-lg-1 col-md-1 col-sm-1 col-12">
@@ -196,16 +197,16 @@
                     </div>
 
                                        </div>
-                    
+
 
 
 
       <div class="row">
         <div class="col-lg-12">
             <div class="row-imie p-3 " id="row-imie">
-          
+
               <div id="deviceList" class="">
-               
+
                 <!-- Devices and IMEI numbers will be displayed here -->
             </div>
          </div>
@@ -214,8 +215,11 @@
 
       <div class="row d-flex justify-content-center">
         <div class="col-lg-6 d-flex justify-content-center">
-          <button class="btn btn-success m-3">Create Batch</button>
-          <button class="btn btn-danger m-3">Cancel Batch</button>
+            <form action="{{ route('update-batch-status', ['batchId' => $batch_detail['id']]) }}" method="post">
+                @csrf
+                <button class="btn btn-success m-3" type="submit" name="create_batch">Create Batch</button>
+                <button class="btn btn-danger m-3" type="submit" name="cancel_batch">Cancel Batch</button>
+            </form>
 
         </div>
       </div>
@@ -231,128 +235,6 @@
 @endsection
 
 @section('customJS')
-{{-- <script>
-   document.addEventListener("DOMContentLoaded", function () {
-    const addGoodsBtn = document.getElementById("add-goods-btn");
-
-    addGoodsBtn.addEventListener("click", function () {
-        const deviceSelect = document.getElementById("device-select");
-        const gradeSelect = document.getElementById("grade-select");
-        const purchasePriceInput = document.getElementById("purchase-price");
-
-        // Get selected device and grade values
-        const deviceId = deviceSelect.value;
-        const gradeId = gradeSelect.value;
-        const purchasePrice = purchasePriceInput.value;
-
-        // Validate input (you can add more validation)
-        if (!deviceId || !gradeId || !purchasePrice) {
-            alert("Please select a device, grade, and enter purchase price.");
-            return;
-        }
-
-        // Send data to the server using Ajax
-        const formData = new FormData();
-        formData.append("device_id", deviceId);
-        formData.append("grade_id", gradeId);
-        formData.append("purchase_price", purchasePrice);
-
-        fetch("{{ route('add-batch-device') }}", {
-            method: "POST",
-            body: formData,
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Update the content of the specific div elements
-                const deviceNameElement = document.querySelector(".device1");
-                const gradeNameElement = document.querySelector(".grade1");
-
-                // Update the content of the elements
-                deviceNameElement.textContent = data.deviceName; // Update with device name
-                gradeNameElement.textContent = data.gradeName;   // Update with grade name
-            } else {
-                alert("Failed to add the device.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-    });
-});
-
-</script> --}}
-
-
-
-{{-- <script>
-    $(document).ready(function() {
-        // Add a New Device
-        $('#addDeviceBtn').click(function() {
-            var selectedDevice = $('#deviceSelect').val();
-            var selectedGrade = $('#gradeSelect').val();
-            var purchasePrice = $('#purchasePrice').val();
-
-            // Make an AJAX request to store the device
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('add-purchase-device') }}",
-                data: {
-                    device_id: selectedDevice,
-                    grade_id: selectedGrade,
-                    purchase_price: purchasePrice,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    // Show the IMEI input section
-                    $('#imeiSection').show();
-                    // Store the device ID
-                    var deviceID = response.device_id;
-                    // Attach the device ID to the Add IMEI button
-                    $('#addImeiBtn').data('device_id', deviceID);
-                    // Display device name and grade name
-                    var deviceName = $('#deviceSelect option:selected').text();
-                    var gradeName = $('#gradeSelect option:selected').text();
-                    $('#deviceName').text(deviceName);
-                    $('#gradeName').text(gradeName);
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        });
-
-        // Add IMEI Number
-        $('#addImeiBtn').click(function() {
-            var deviceID = $(this).data('device_id');
-            var imei = $('#imeiInput').val();
-
-            // Make an AJAX request to store the IMEI number
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('add-imei') }}",
-                data: {
-                    device_id: deviceID,
-                    imei: imei,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    // Add the IMEI number to the device list
-                    $('#devices').append('<li>' + response.imei + '</li>');
-                    // Clear the IMEI input
-                    $('#imeiInput').val('');
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        });
-    });
-</script> --}}
-
 
 
 
@@ -362,7 +244,11 @@
     $('#addDeviceBtn').click(function() {
         var selectedDevice = $('#deviceSelect').val();
         var selectedGrade = $('#gradeSelect').val();
+        var selectedManufacturer = $('#manufacturerSelect').val();
+        var selectedColor = $('#colorSelect').val();
+        var selectedGb = $('#gbSelect').val();
         var purchasePrice = $('#purchasePrice').val();
+        var selectedBatch = $('#batchSelect').val();
 
         $('#loader').show();
         // Make an AJAX request to store the device
@@ -372,6 +258,10 @@
             data: {
                 device_id: selectedDevice,
                 grade_id: selectedGrade,
+                manufacturer_id: selectedManufacturer,
+                color_id: selectedColor,
+                gb_id: selectedGb,
+                batch_id: selectedBatch,
                 purchase_price: purchasePrice,
                 _token: '{{ csrf_token() }}'
             },
@@ -386,7 +276,7 @@
 
                 // Create a container for IMEI numbers
                 var imeiContainer = $('<div id="arrow-click" class="imei-container items p-3 row">');
-                 
+
                 imeiContainer.append('   <div  class=" right-icon-img col-lg-1 col-md-1 col-sm-1 col-12">'+
                        '</div>');
 
@@ -394,13 +284,13 @@
                 imeiContainer.append('<div class="col-lg-2 col-md-2 col-sm-2 col-12"><h5>' + response.deviceName + '</h5></div>');
                 imeiContainer.append('<div class="col-lg-2 col-md-2 col-sm-2 col-12"><h5></h5></div>');
 
-                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><h5>Green</h5></div>');
-                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><h5>64</h5></div>');
-                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><h5>A++</h5></div>');
+                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><h5>'+response.colorName+'</h5></div>');
+                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><h5>'+response.gbName+'</h5></div>');
+                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><h5>'+response.gradeName+'</h5></div>');
                 imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><h5>draft</h5></div>');
 
-                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><input class="form-control" text="type" value="5"/></div>');
-                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><input class="form-control" tyep="text"/></div>');
+                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><input class="form-control" text="type" value="'+response.quantity+'"/></div>');
+                imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><input class="form-control" type="text" value="'+response.purchasedPrice+'"/></div>');
                 imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12">10 ADE</div>');
 
 
@@ -452,7 +342,7 @@
             success: function(response) {
                 // Add the IMEI number to the corresponding device's list
                 var imeiList = imeiInput.siblings('.imei-list');
-                imeiList.append('<li id="row">' + response.imei + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" id="DeleteRow" type="button" data="'+ response.imei +'">'+ 
+                imeiList.append('<li id="row">' + response.imei + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" id="DeleteRow" type="button" data="'+ response.imei +'">'+
                 '<i class="bi bi-trash">  <h6 class="cross mini">  &times;</h6></i></button> </div></div> </div> </li>');
 
                 // Clear the IMEI input
@@ -464,18 +354,8 @@
         });
     });
 
-// document.addEventListener("DOMContentLoaded", function() {
-//          document.getElementById("#arrow-click").click(function(){
-//       console.log('hi');
 
 
-// });
-
-// });
-
-
-
- 
 });
 
 

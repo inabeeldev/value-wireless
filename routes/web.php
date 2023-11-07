@@ -34,6 +34,7 @@ Route::get('/settings', [App\Http\Controllers\HomeController::class, 'setting'])
 Route::get('/forget-sessions', [BatchController::class, 'forget'])->name('forget-sessions');
 Route::resource('batch', BatchController::class);
 Route::get('/batch-detail', [BatchController::class, 'batch_detail'])->name('batch-detail');
+Route::post('/update-batch-status/{batchId}', [BatchController::class, 'updateStatus'])->name('update-batch-status');
 Route::post('/add-batch-device', [BatchController::class, 'addBatchDevice'])->name('add-batch-device');
 Route::resource('supplier', SupplierController::class);
 Route::resource('warehouse',WarehouseController::class);

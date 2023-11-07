@@ -7,8 +7,11 @@ use App\Models\Supplier;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Color;
 use App\Models\Device;
+use App\Models\Gb;
 use App\Models\Grade;
+use App\Models\Manufacturer;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -53,10 +56,11 @@ class BatchController extends Controller
         ]);
         if ($validator->passes()) {
             $input = $request->all();
-            Session::put('batch_detail', $input);
+
             // $input['status'] = 'disbale';
             $input['user_id'] = auth()->user()->id;
-            Batch::create($input);
+            $batch =  Batch::create($input);
+            Session::put('batch_detail', $batch);
 
             $request->session()->flash('success', 'Batch added successfully');
             return response()->json([
@@ -80,36 +84,69 @@ class BatchController extends Controller
 
         $devices = Device::all();
         $grades = Grade::all();
+        $gbs = Gb::all();
+        $manufacturers = Manufacturer::all();
+        $colors = Color::all();
         //   dd($warehouse);
-        return view('purchases.batch.batch_detail',compact('batch_detail','supplier','warehouse','devices','grades'));
+        return view('purchases.batch.batch_detail',compact('batch_detail','supplier','warehouse',
+                    'devices','grades','gbs','manufacturers','colors'));
 
     }
 
     public function addBatchDevice(Request $request)
-        {
-            // Retrieve data from the request
-            $deviceId = $request->input('device_id');
-            $gradeId = $request->input('grade_id');
-            $purchasePrice = $request->input('purchase_price');
+    {
+        // Retrieve data from the request
+        $deviceId = $request->input('device_id');
+        $gradeId = $request->input('grade_id');
+        $purchasePrice = $request->input('purchase_price');
 
-            // Retrieve device and grade names from the database
-            $device = Device::where('id', $deviceId)->first();
-            $grade = Grade::where('id', $gradeId)->first();
+        // Retrieve device and grade names from the database
+        $device = Device::where('id', $deviceId)->first();
+        $grade = Grade::where('id', $gradeId)->first();
 
-            // Validate and process the data as needed
-            // For example, you can store the device information in the session
+        // Validate and process the data as needed
+        // For example, you can store the device information in the session
 
-            // Create an HTML representation of the added device with device name and grade name
-            $deviceHtml = "<td class='device1'></td><td class='grade1'></td><td>{$purchasePrice}</td>";
+        // Create an HTML representation of the added device with device name and grade name
+        $deviceHtml = "<td class='device1'></td><td class='grade1'></td><td>{$purchasePrice}</td>";
 
-            // Return a JSON response with the HTML, device name, and grade name
-            return response()->json([
-                'success' => true,
-                'html' => $deviceHtml,
-                'deviceName' => $device->name,
-                'gradeName' => $grade->name,
-            ]);
+        // Return a JSON response with the HTML, device name, and grade name
+        return response()->json([
+            'success' => true,
+            'html' => $deviceHtml,
+            'deviceName' => $device->name,
+            'gradeName' => $grade->name,
+        ]);
+    }
+
+    public function updateStatus(Request $request, $batchId)
+    {
+        $batch = Batch::find($batchId);
+
+        if (!$batch) {
+            return redirect()->route('batch.index');
         }
+
+        // Check which button was clicked
+        if ($request->has('create_batch')) {
+            $batch->status = 'enable';
+            $batch->save();
+            session()->forget('batch_detail');
+            return redirect()->route('batch.index')->with('success', 'Batch created successfully');
+
+        } elseif ($request->has('cancel_batch')) {
+            $batch->status = 'disable';
+            $batch->save();
+            session()->forget('batch_detail');
+            return redirect()->route('batch.index')->with('success', 'Batch saved in draft successfully');
+
+        }
+        else{
+            session()->forget('batch_detail');
+            return redirect()->route('batch.index')->with('success', 'Batch created successfully');
+        }
+
+    }
 
 
 
