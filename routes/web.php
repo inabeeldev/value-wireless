@@ -35,6 +35,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/forget-sessions', [BatchController::class, 'forget'])->name('forget-sessions');
 Route::resource('batch', BatchController::class);
 Route::get('/batch-detail', [BatchController::class, 'batch_detail'])->name('batch-detail');
+Route::post('/update-batch-status/{batchId}', [BatchController::class, 'updateStatus'])->name('update-batch-status');
 Route::post('/add-batch-device', [BatchController::class, 'addBatchDevice'])->name('add-batch-device');
 Route::resource('supplier', SupplierController::class);
 Route::resource('warehouse',WarehouseController::class);
@@ -45,4 +46,5 @@ Route::resource('color',colorController::class);
 Route::resource('gb',gbController::class);
 Route::post('/new-devices', [ProductController::class, 'store'])->name('add-purchase-device');
 Route::post('/imei', [ProductController::class, 'storeImei'])->name('add-imei');
+Route::delete('/remove-imei/{imei?}', [ProductController::class, 'removeImei'])->name('remove-imei');
 

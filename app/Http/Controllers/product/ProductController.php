@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\product;
 
 use App\Http\Controllers\Controller;
+use App\Models\Color;
 use App\Models\Device;
+use App\Models\Gb;
+use App\Models\Grade;
 use App\Models\Product;
 use App\Models\PurchasedDevice;
 use Illuminate\Http\Request;
@@ -14,15 +17,22 @@ class ProductController extends Controller
     {
         $device = PurchasedDevice::create([
             'device_id' => $request->input('device_id'),
-            'batch_id' => 5,
+            'batch_id' => $request->input('batch_id'),
+            'gb_id' => $request->input('gb_id'),
+            'color_id' => $request->input('color_id'),
+            'manufacturer_id' => $request->input('manufacturer_id'),
             'grade_id' => $request->input('grade_id'),
             'purchase_price' => $request->input('purchase_price'),
             'quantity' => 5,
         ]);
 
         $dv = Device::where('id', $device->device_id)->first();
+        $color = Color::where('id', $device->color_id)->first();
+        $gb = Gb::where('id', $device->gb_id)->first();
+        $grade = Grade::where('id', $device->grade_id)->first();
 
-        return response()->json(['device_id' => $device->id,'deviceName' => $dv->name]);
+        return response()->json(['device_id' => $device->id,'deviceName' => $dv->name,'colorName' => $color->name,
+                                'gbName' => $gb->name,'gradeName' => $grade->name,'quantity' => $device->quantity,'purchasedPrice' => $device->purchase_price]);
     }
 
     public function storeImei(Request $request)
@@ -38,5 +48,19 @@ class ProductController extends Controller
         $imeiNumber->save();
 
         return response()->json(['imei' => $imei]);
+    }
+
+    public function removeImei($imei)
+    {
+        // dd($imei);
+        $product = Product::where('imei', $imei)->first();
+
+        if ($product) {
+            $product->delete();
+
+            return response()->json(['message' => 'Row with imei ' . $imei . ' deleted successfully']);
+        } else {
+            return response()->json(['error' => 'Row with imei ' . $imei . ' not found'], 404);
+        }
     }
 }
