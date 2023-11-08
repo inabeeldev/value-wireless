@@ -130,7 +130,7 @@
                                         <!-- Purchase price input -->
                                         <div class="col-lg-2 col-md-2 col-sm-2 col-12">
                                             <input type="text" class="form-control" id="purchasePrice" placeholder="Total Amount">
-                                            <input type="text" id="batchSelect" value="{{ $batch_detail['id'] }}">
+                                            <input type="hidden" id="batchSelect" value="{{ $batch_detail['id'] }}">
                                         </div>
                                         <!-- Add Goods button -->
                                         <div class="col-lg-2 col-md-2 col-sm-2 col-12">
@@ -342,8 +342,8 @@
             success: function(response) {
                 // Add the IMEI number to the corresponding device's list
                 var imeiList = imeiInput.siblings('.imei-list');
-                imeiList.append('<li id="row">' + response.imei + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" id="DeleteRow" type="button" data="'+ response.imei +'">'+
-                '<i class="bi bi-trash">  <h6 class="cross mini">  &times;</h6></i></button> </div></div> </div> </li>');
+                imeiList.append('<li>' + response.imei + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" id="DeleteRow" type="button" data-imei="' + response.imei + '"><i class="bi bi-trash"><h6 class="cross mini">&times;</h6></i></button></li>');
+
 
                 // Clear the IMEI input
                 imeiInput.val('');
@@ -353,6 +353,39 @@
             }
         });
     });
+
+    $('document').ready(function () {
+    $("body").on("click", "#DeleteRow", function () {
+        // Get the imei value from the button's data attribute.
+        var imei = $(this).data('imei');
+
+        // Store a reference to the parent <li> element for later removal.
+        var $rowToRemove = $(this).closest("li");
+
+        // Send an Ajax request to delete the row.
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ route('remove-imei') }}" + '/' + imei,
+            success: function (data) {
+                if (data.message) {
+                    // Handle success - remove the row from the list.
+                    $rowToRemove.remove();
+                    console.log("Error: " + data.message);
+                } else if (data.error) {
+                    // Handle errors (e.g., display an error message).
+                    console.log("Error: " + data.error);
+                }
+            },
+            error: function (xhr) {
+                // Handle unexpected errors (e.g., display an error message).
+                console.log("Error: " + xhr.status);
+
+            }
+        });
+    });
+});
+
+
 
 
 
