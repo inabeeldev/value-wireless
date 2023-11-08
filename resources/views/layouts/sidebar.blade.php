@@ -30,7 +30,7 @@
             <li><a href="#">Purchase orders</a></li>
             <li><a href="{{route('batch.index')}}">Batch</a></li>
             <li><a href="#">Return to Supplier</a></li>
-            <li><a href="{{ route('vw-setting') }}">Setting</a></li>
+            <li><a href="{{ route('setting') }}">Setting</a></li>
 
 
           </ul>

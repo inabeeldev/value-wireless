@@ -26,11 +26,12 @@ use App\Http\Controllers\gb\gbController;
 Route::get('/', function () {
     return view('auth.login');
 });
-
+Route::get('/setting', function () {
+    return view('setting.setting');
+});
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/settings', [App\Http\Controllers\HomeController::class, 'setting'])->name('vw-setting');
 Route::get('/forget-sessions', [BatchController::class, 'forget'])->name('forget-sessions');
 Route::resource('batch', BatchController::class);
 Route::get('/batch-detail', [BatchController::class, 'batch_detail'])->name('batch-detail');
@@ -39,9 +40,9 @@ Route::resource('supplier', SupplierController::class);
 Route::resource('warehouse',WarehouseController::class);
 Route::resource('device',DeviceController::class);
 Route::resource('grade',GradeController::class);
-Route::resource('manufacturer',ManufacturerController::class);
-Route::resource('color',ColorController::class);
-Route::resource('gb',GbController::class);
+Route::resource('manufacturer',manufacturerController::class);
+Route::resource('color',colorController::class);
+Route::resource('gb',gbController::class);
 Route::post('/new-devices', [ProductController::class, 'store'])->name('add-purchase-device');
 Route::post('/imei', [ProductController::class, 'storeImei'])->name('add-imei');
 
