@@ -49,4 +49,18 @@ class ProductController extends Controller
 
         return response()->json(['imei' => $imei]);
     }
+
+    public function removeImei($imei)
+    {
+        // dd($imei);
+        $product = Product::where('imei', $imei)->first();
+
+        if ($product) {
+            $product->delete();
+
+            return response()->json(['message' => 'Row with imei ' . $imei . ' deleted successfully']);
+        } else {
+            return response()->json(['error' => 'Row with imei ' . $imei . ' not found'], 404);
+        }
+    }
 }

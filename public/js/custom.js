@@ -9,8 +9,8 @@ $(this).toggleClass('rotate');});
 $("body").on("click", "#add-new-imi-btn", function () {
 $(this).siblings("ol").addClass("d-block");
 $(this).siblings("div:first-child").addClass('rotate');});
-$("body").on("click", "#DeleteRow", function () {
-$(this).parents("#row").remove();});
+// $("body").on("click", "#DeleteRow", function () {
+// $(this).parents("#row").remove();});
 });
 
 

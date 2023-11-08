@@ -45,4 +45,5 @@ Route::resource('color',ColorController::class);
 Route::resource('gb',GbController::class);
 Route::post('/new-devices', [ProductController::class, 'store'])->name('add-purchase-device');
 Route::post('/imei', [ProductController::class, 'storeImei'])->name('add-imei');
+Route::delete('/remove-imei/{imei?}', [ProductController::class, 'removeImei'])->name('remove-imei');
 
