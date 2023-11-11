@@ -35,19 +35,35 @@ class ProductController extends Controller
                                 'gbName' => $gb->name,'gradeName' => $grade->name,'quantity' => $device->quantity,'purchasedPrice' => $device->purchase_price]);
     }
 
+    // public function storeImei(Request $request)
+    // {
+    //     // dd($request->all());
+    //     // Store IMEI number for a device
+    //     $deviceID = $request->input('device_id');
+    //     $imei = $request->input('imei');
+
+    //     $imeiNumber = new Product();
+    //     $imeiNumber->purchased_device_id = $deviceID;
+    //     $imeiNumber->imei = $imei;
+    //     $imeiNumber->save();
+
+    //     return response()->json(['imei' => $imei]);
+    // }
+
     public function storeImei(Request $request)
     {
-        // dd($request->all());
-        // Store IMEI number for a device
+        // Store IMEI numbers for a device
         $deviceID = $request->input('device_id');
-        $imei = $request->input('imei');
+        $imeiArray = $request->input('imei');
 
-        $imeiNumber = new Product();
-        $imeiNumber->purchased_device_id = $deviceID;
-        $imeiNumber->imei = $imei;
-        $imeiNumber->save();
+        foreach ($imeiArray as $imei) {
+            $imeiNumber = new Product();
+            $imeiNumber->purchased_device_id = $deviceID;
+            $imeiNumber->imei = $imei;
+            $imeiNumber->save();
+        }
 
-        return response()->json(['imei' => $imei]);
+        return response()->json(['imei' => $imeiArray]);
     }
 
     public function removeImei($imei)

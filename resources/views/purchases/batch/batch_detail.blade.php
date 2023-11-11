@@ -80,7 +80,8 @@
                                                 <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
                                                 @endforeach
                                             </select>
-                                              <a href="">Add new Manufacturer</a>
+                                              <a href="">Add new Manufacturer</a><br>
+                                              <b id="manufacturerValidation" class="text-danger"></b>
 
                                         </div>
 
@@ -94,7 +95,8 @@
                                                 @endforeach
 
                                             </select>
-                                              <a href="">Add new Model</a>
+                                              <a href="">Add new Model</a><br>
+                                              <b id="deviceValidation" class="text-danger"></b>
 
                                         </div>
                                           <div class="col-lg-2 col-md-2 col-sm-2 col-12">
@@ -104,7 +106,8 @@
                                                     <option value="{{ $color->id }}">{{ $color->name }}</option>
                                                 @endforeach
                                             </select>
-                                              <a href="">Add new Color</a>
+                                              <a href="">Add new Color</a><br>
+                                              <b id="colorValidation" class="text-danger"></b>
 
                                         </div>
                                           <div class="col-lg-2 col-md-2 col-sm-2 col-12">
@@ -114,7 +117,8 @@
                                                     <option value="{{ $gb->id }}">{{ $gb->name }}</option>
                                                 @endforeach
                                             </select>
-                                              <a href="">Add new GB</a>
+                                              <a href="">Add new GB</a><br>
+                                              <b id="gbValidation" class="text-danger"></b>
                                         </div>
                                         <!-- Grade selection dropdown -->
                                         <div class="col-lg-2 col-md-2 col-sm-3 col-12">
@@ -124,14 +128,19 @@
                                                     <option value="{{ $grade->id }}">{{ $grade->name }}</option>
                                                 @endforeach
                                             </select>
-                                              <a href="">Add new grade</a>
+                                              <a href="">Add new grade</a><br>
+                                            <b id="gradeValidation" class="text-danger"></b>
+
 
                                         </div>
                                         <!-- Purchase price input -->
                                         <div class="col-lg-2 col-md-2 col-sm-2 col-12">
-                                            <input type="text" class="form-control" id="purchasePrice" placeholder="Total Amount">
+                                            <input type="text" class="form-control" id="purchasePrice" placeholder="Total Amount"><br>
+
                                             <input type="hidden" id="batchSelect" value="{{ $batch_detail['id'] }}">
                                         </div>
+                                        <b id="priceValidation" class="text-danger"></b>
+
                                         <!-- Add Goods button -->
                                         <div class="col-lg-2 col-md-2 col-sm-2 col-12">
                                             <button type="button" class="form-control btn btn-info" id="addDeviceBtn">Add Goods</button>
@@ -241,7 +250,8 @@
 <script>
     $(document).ready(function() {
     // Add a New Device
-    $('#addDeviceBtn').click(function() {
+    $('#addDeviceBtn').click(function () {
+        // Gather input values
         var selectedDevice = $('#deviceSelect').val();
         var selectedGrade = $('#gradeSelect').val();
         var selectedManufacturer = $('#manufacturerSelect').val();
@@ -249,6 +259,10 @@
         var selectedGb = $('#gbSelect').val();
         var purchasePrice = $('#purchasePrice').val();
         var selectedBatch = $('#batchSelect').val();
+
+
+        // Validate inputs
+        @include('purchases.batch.partials.validations')
 
         $('#loader').show();
         // Make an AJAX request to store the device
@@ -280,7 +294,6 @@
                 imeiContainer.append('   <div  class=" right-icon-img col-lg-1 col-md-1 col-sm-1 col-12">'+
                        '</div>');
 
-
                 imeiContainer.append('<div class="col-lg-2 col-md-2 col-sm-2 col-12"><h5>' + response.deviceName + '</h5></div>');
                 imeiContainer.append('<div class="col-lg-2 col-md-2 col-sm-2 col-12"><h5></h5></div>');
 
@@ -292,21 +305,14 @@
                 imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><input class="form-control" text="type" value="'+response.quantity+'"/></div>');
                 imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12"><input class="form-control" type="text" value="'+response.purchasedPrice+'"/></div>');
                 imeiContainer.append('<div class="col-lg-1 col-md-1 col-sm-1 col-12">10 ADE</div>');
-
-
-
-
-
                 // IMEI input
                 imeiContainer.append('<input type="text" class="imei-input form-control" placeholder="IMEI" />' );
-
                 // Add IMEI button
                 imeiContainer.append('<button id="add-new-imi-btn" class="add-imei-btn btn btn-info">Add new IMEI</button>');
 
                 // List to display IMEI numbers
                 imeiContainer.append('<ol class="imei-list imie-form-inner"></ol>');
                 // imeiContainer.append('<i id="delete-model-section" class="fa fa-facebook">X</i>');
-
 
                 deviceSection.append(imeiContainer);
 
@@ -325,34 +331,75 @@
     });
 
     // Add IMEI Number
-    $(document).on('click', '.add-imei-btn', function() {
-        var imeiInput = $(this).siblings('.imei-input');
-        var deviceID = $(this).closest('.device-section').data('device-id');
-        var imei = imeiInput.val();
+    // $(document).on('click', '.add-imei-btn', function() {
+    //     var imeiInput = $(this).siblings('.imei-input');
+    //     var deviceID = $(this).closest('.device-section').data('device-id');
+    //     var imei = imeiInput.val();
 
-        // Make an AJAX request to store the IMEI number
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('add-imei') }}",
-            data: {
-                device_id: deviceID,
-                imei: imei,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                // Add the IMEI number to the corresponding device's list
-                var imeiList = imeiInput.siblings('.imei-list');
-                imeiList.append('<li>' + response.imei + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" id="DeleteRow" type="button" data-imei="' + response.imei + '"><i class="bi bi-trash"><h6 class="cross mini">&times;</h6></i></button></li>');
+    //     // Make an AJAX request to store the IMEI number
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: "{{ route('add-imei') }}",
+    //         data: {
+    //             device_id: deviceID,
+    //             imei: imei,
+    //             _token: '{{ csrf_token() }}'
+    //         },
+    //         success: function(response) {
+    //             // Add the IMEI number to the corresponding device's list
+    //             var imeiList = imeiInput.siblings('.imei-list');
+    //             imeiList.append('<li>' + response.imei + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" id="DeleteRow" type="button" data-imei="' + response.imei + '"><i class="bi bi-trash"><h6 class="cross mini">&times;</h6></i></button></li>');
 
 
-                // Clear the IMEI input
-                imeiInput.val('');
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
+    //             // Clear the IMEI input
+    //             imeiInput.val('');
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.error(error);
+    //         }
+    //     });
+    // });
+
+    $(document).on('click', '.add-imei-btn', function () {
+    var imeiInput = $(this).siblings('.imei-input');
+    var deviceID = $(this).closest('.device-section').data('device-id');
+    var imeiValue = imeiInput.val();
+
+    // Split the input value by spaces to get an array of IMEI numbers
+    var imeiArray = imeiValue.split(/\s+/).filter(function (imei) {
+        return imei.trim() !== ''; // Remove empty strings
     });
+
+    if (imeiArray.length === 0) {
+        // No valid IMEI numbers entered
+        alert('Please enter valid IMEI numbers.');
+        return;
+    }
+
+    // Make an AJAX request to store the IMEI numbers
+    $.ajax({
+        type: 'POST',
+        url: "{{ route('add-imei') }}",
+        data: {
+            device_id: deviceID,
+            imei: imeiArray,
+            _token: '{{ csrf_token() }}'
+        },
+        success: function (response) {
+            // Add the IMEI numbers to the corresponding device's list
+            var imeiList = imeiInput.siblings('.imei-list');
+            $.each(response.imei, function (index, imei) {
+                imeiList.append('<li>' + imei + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-danger" id="DeleteRow" type="button" data-imei="' + imei + '"><i class="bi bi-trash"><h6 class="cross mini">&times;</h6></i></button></li>');
+            });
+
+            // Clear the IMEI input
+            imeiInput.val('');
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+});
 
     $('document').ready(function () {
     $("body").on("click", "#DeleteRow", function () {
